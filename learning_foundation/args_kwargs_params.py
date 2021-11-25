@@ -2,7 +2,8 @@
 
 
 kwargs = {'name': 'huang', 'age': 24, 'interest': 'python', 'date_time': 2021}
-args = ('huang', 24, 'mysql')
+args = ('huang', 24, 'mysql', 'kotlin')
+
 
 def run(name: str, age: int, *args, **kwargs):
     print(name, age)
@@ -13,8 +14,8 @@ def run(name: str, age: int, *args, **kwargs):
 
 if __name__ == '__main__':
 
-    run(**kwargs)     # 将字典按照关键字传参
+    run(**kwargs)     # 将字典按照关键字传参,未传入的参数放在kwargs里
     print('-----------------------------------------')
     print('-----------------------------------------')
-    run(*args)        # 将元组按照位置传参
+    run(*args)        # 将元组按照位置传参,未传入的参数放在args里
 

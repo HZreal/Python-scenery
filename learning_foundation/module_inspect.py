@@ -11,12 +11,17 @@ import inspect
 """Return all members of an object as (name, value) pairs sorted by name.
     Optionally, only return members that satisfy a given predicate."""
 # 返回值为object的所有成员，为一个元组列表，列表元素是元组（name, value）
+
+
 class Obj:
     a = 1
     b = 'aaaa'
+
     def func(self):
         a = inspect.getmembers(self)
         print(a)
+
+
 obj = Obj()
 obj.func()
 
