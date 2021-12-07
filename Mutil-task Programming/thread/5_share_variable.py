@@ -21,16 +21,13 @@
 #
 #     add_thread.start()
 #     join函数：主线程(main_thread)等待当前子线程(add_thread)执行完成，代码再继续往下执行
-    # add_thread.join()       # 线程同步，使添加数据线程先执行完
-    # read_thread.start()
-
-
-
-
+# add_thread.join()       # 线程同步，使添加数据线程先执行完
+# read_thread.start()
 
 
 # 线程之间共享全局变量数据出现错误问题
 import threading
+
 num = 0
 
 # def task1():
@@ -76,6 +73,7 @@ num = 0
 # threading模块中定义了Lock变量，这个变量本质上是一个函数，通过调用这个函数可以获取一把互斥锁。
 lock = threading.Lock()
 
+
 def task1():
     # 上锁
     lock.acquire()
@@ -84,23 +82,25 @@ def task1():
         global num
         num += 1
     else:
-        print('task1:',num)
+        print('task1:', num)
 
     # 释放锁
     lock.release()
+
 
 def task2():
     # 上锁
     lock.acquire()
 
     for i in range(1000000):
-        global num     #表示声明修改全局变量的内存地址
+        global num  # 表示声明修改全局变量的内存地址
         num += 1
     else:
-        print('task2:',num)
+        print('task2:', num)
 
     # 释放锁
     lock.release()
+
 
 if __name__ == '__main__':
     first_thread = threading.Thread(target=task1)
@@ -113,47 +113,3 @@ if __name__ == '__main__':
 # 使用互斥锁的好处确保某段关键代码只能由一个线程从头到尾完整地去执行
 # 使用互斥锁会影响代码的执行效率，多任务改成了单任务执行
 # 互斥锁如果没有使用好容易出现死锁的情况
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -36,7 +36,7 @@ print(result)
 
 '''
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 
 """
 day = 0
@@ -50,7 +50,6 @@ while day < 5:
     day += 1
 """
 
-
 '''
 day = 0
 while day < 5:
@@ -62,7 +61,6 @@ while day < 5:
     day += 1
 
 '''
-
 
 '''
 j = 1
@@ -83,7 +81,6 @@ for i in str1:
         break
     print(i,end=' ')
 '''
-
 
 '''
 str1 = 'it heima'
@@ -106,7 +103,6 @@ while i <= 5 :
 else:
     print('哪里难了')
 '''
-
 
 '''
 #如果是continue终止循环的情况下，else后缩进的代码会执行
@@ -131,7 +127,6 @@ else:
 while  else 与for  else 相同， else后均是循环正常结束后要执行的（与其他语言不同）
 '''
 
-
 '''
 # 遇到break时，else后面缩进的不执行,遇到continue,else后面的继续执行
 str1 = 'it heima'
@@ -152,13 +147,11 @@ else:
 
 '''
 
-
 # 整型int ：不可变数据类型
 # a = 1
 # print(id(a),type(a))          # 1912499232 <class 'int'>
 # a = 2
 # print(id(a),type(a))           # 1912499264 <class 'int'>
-
 
 
 # 字符串
@@ -205,7 +198,6 @@ else:
 # print(mystr.count('ios',2,30))   #返回0表示没有，不会报错
 
 
-
 # 修改(不可变数据类型)
 # mystr = 'today is a nice day, is very well'
 # new_str = mystr.replace('is', 'and')
@@ -235,7 +227,6 @@ else:
 # title() 每个单词首字母都变大写
 # lower() 所有大写转小写
 # upper()  所有小写转大写
-
 
 
 # 列表：可变数据类型
@@ -292,8 +283,6 @@ for office in offices:
     i += 1
 '''
 
-
-
 # 元组：又被称为只读列表，即数据可以被查询，但不能被修改，属于不可变数据类型
 # tuple 放弃了对元素的增删（内存结构设计上变的更精简），换取的是性能上的提升：创建tuple比list要快，存储空间比list占用更小，多线程并发的时候，tuple是不需要加锁的，不用担心安全问题
 # 元组也支持切片，但是它只支持通过切片访问元组中的元素，不支持修改
@@ -341,9 +330,6 @@ for office in offices:
 # print(id(temp))
 # new_temp = temp[:2] + ("小猪佩奇",) + temp[2:]          # 实质是新建一个元祖
 # print(new_temp, id(new_temp))                           # ('龙猫', '泰迪', '小猪佩奇', '叮当猫')
-
-
-
 
 
 # 字典：可变数据类型
@@ -483,13 +469,10 @@ s5 = {}   #创建空字典
 #     print(i)
 
 
-
-
 # 容器类型转换
 # tuple()  转换成元组
 # list()
 # set()
-
 
 
 # 推导式  -------创建或控制有规律的数据
@@ -535,7 +518,7 @@ s5 = {}   #创建空字典
 #
 
 
-#字典推导式 -------------快速合并列表为字典或者提取字典中的目标数据
+# 字典推导式 -------------快速合并列表为字典或者提取字典中的目标数据
 # dict1 = {i : i**2 for i in range(1,6)}
 # print(dict1)
 
@@ -571,9 +554,6 @@ s5 = {}   #创建空字典
 # global a   声明a是全局变量
 
 
-
-
-
 # 位置参数          参数个数和参数顺序必须一一对应
 # 关键字参数           清除了参数的顺序需求，无序
 # 缺省参数(又称默认参数)       函数定义时就给了形参默认值
@@ -595,14 +575,12 @@ s5 = {}   #创建空字典
 # user_info2(name = 'Tom',age = 22)
 
 
-
 # 元组拆包
 # def return_num():
 #     return 100,200
 # num1, num2 = return_num()     #用两个变量分别接受
 # print(num1)
 # print(num2)
-
 
 
 # 交换变量的值
@@ -612,7 +590,6 @@ s5 = {}   #创建空字典
 # a,b = 1,2
 # a,b = b,a
 # print(a,b)
-
 
 
 # 引用   -----python中，值是靠引用来传递的
@@ -652,7 +629,6 @@ s5 = {}   #创建空字典
 # tuple
 
 
-
 # 高阶函数
 # def sum_num(a, b, f):    # f 是函数作为参数传入
 #     return f(a) + f(b)
@@ -663,11 +639,9 @@ s5 = {}   #创建空字典
 # print(result2)
 
 
-
 # 递归
 # 函数内部自己调用自己
 # 必须有出口
-
 
 
 # lambda匿名函数       python有限支持匿名函数
@@ -701,8 +675,6 @@ s5 = {}   #创建空字典
 # print(result)
 
 
-
-
 # python内置高阶函数
 # map(func, list)  --------------将传入的函数变量func作用到list变量的每个元素中,并将结果组成新的列表py2/迭代器py3
 # list1 = [1, 2, 3, 4, 5]
@@ -726,8 +698,6 @@ s5 = {}   #创建空字典
 #     return x % 2 == 0
 # result = filter(func, list3)
 # print(list(result))
-
-
 
 
 # 文件操作
@@ -808,8 +778,8 @@ s5 = {}   #创建空字典
 #     content = old_file.read()
 #     if len(content) == 0:
 #         表示读取完
-        # break
-    # new_file.write(content)
+# break
+# new_file.write(content)
 # old_file.close()
 # new_file.close()
 
@@ -857,18 +827,8 @@ s5 = {}   #创建空字典
 #     os.rename(i,new_name)
 
 
-
-
 # 生成6位随机码
 # import random
 # for i in range(20):
 #     num = '%06d' % random.randint(0, 999999)
 #     print(num)
-
-
-
-
-
-
-
-

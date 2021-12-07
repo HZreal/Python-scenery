@@ -1,9 +1,12 @@
 # 线程的执行是无序的，其执行顺序取决于当时CPU调度
 import threading
 import time
+
+
 def task():
     time.sleep(1)
     print(threading.current_thread())
+
 
 if __name__ == '__main__':
     # 循环创建大量线程，测试线程无序
@@ -32,7 +35,3 @@ if __name__ == '__main__':
 # <Thread(Thread-18, started 10356)>
 # <Thread(Thread-20, started 5496)>
 # <Thread(Thread-15, started 9940)>
-
-
-
-

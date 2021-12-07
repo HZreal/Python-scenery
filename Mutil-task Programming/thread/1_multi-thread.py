@@ -5,6 +5,7 @@ import threading
 
 import time
 
+
 def sing():
     # 获取当前线程(子线程)
     sing_thread = threading.current_thread()
@@ -12,6 +13,7 @@ def sing():
     for i in range(3):
         print('唱歌中...')
         time.sleep(0.2)
+
 
 def dance():
     dance_thread = threading.current_thread()
@@ -35,61 +37,3 @@ if __name__ == '__main__':
     # 启动子线程
     sing_thread.start()
     dance_thread.start()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

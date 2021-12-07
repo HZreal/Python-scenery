@@ -23,7 +23,7 @@ conn = pymysql.connect(**{
 
 def run():
     cursor = conn.cursor()
-    sql = 'select name,age,height from student;'
+    sql = 'select name, age, height from student;'
     cursor.execute(sql)
 
     res_dict_list = dict_fetchall(cursor)
