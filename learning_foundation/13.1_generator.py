@@ -50,8 +50,8 @@
 #         print('第%d个数据生成了...' % i)
 #     yield 5
 #     print('end--------------------')
-#
-#
+
+
 # # 创建生成器
 # generator_obj = _generator()
 # print(generator_obj)       # generator对象
@@ -99,11 +99,13 @@
 #     while True:
 #         res = yield 4
 #         print("res:", res)
-#
+
 # g = foo()
-# print(next(g))
+# res = next(g)           # 等价于 g.__next__()
+# print(res)
 # print("*"*20)
-# print(g.send(7))
+# res = g.send(7)
+# print(res)
 # 执行结果：
 # starting...
 # 4
@@ -117,16 +119,18 @@
 def generate():
     i = 0
     while i < 5:
-        print("我在这。。")
-        xx = yield i  # 注意，python程序，碰到=，都是先从右往左执行
+        print("before yield --------")
+        xx = yield i
         print(xx)
         i += 1
 
 g = generate()
+r = g.send(None)  # <==> next(g) 第一次启动，执行到yield i（此时i=0），挂起任务，主程序继续往下执行
+print(r)
+r = g.send("lalala")  # 第二次唤醒生成器，从上次的yield i 处继续执行，即往左执行，把lalala赋值给xx后，往下执行，直到下次的yield i（此时i=1），挂起任务
+print(r)
 
-g.send(None)  # <==> next(g) 第一次启动，执行到yield i（此时i=0），挂起任务，主程序继续往下执行
 
-g.send("lalala")  # 第二次唤醒生成器，从上次的yield i 处继续执行，即往左执行，把lalala赋值给xx后，往下执行，直到下次的yield i（此时i=1），挂起任务
 
 
 
