@@ -699,6 +699,29 @@ s5 = {}   #创建空字典
 # result = filter(func, list3)
 # print(list(result))
 
+# zip函数：参数为多个可迭代对象
+# 用于将这多个对象中下标索引对应的元素打包成一个元组，返回一个列表(py2.x)或者一个zip对象(py3.x)
+# python2.x返回由这些元组组成的列表。Python3.x中为了减少内存，返回的是一个zip对象。如需展示列表，需手动 list() 转换
+# 如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表
+# seq = ['one', 'two', 'three']
+# seq1 = [1, 2, 3]
+# seq2 = [4, 5, 6, 7]
+# seq3 = [8, 9, 10, 11, 12]
+# zip_obj = zip(seq, seq1)
+# print(zip(seq))                                                         # 不报错，
+# print(zip_obj)                                                          # <zip object at 0x10487e700>可以理解成(('one', 1), ('two', 2), ('three', 3))    是个生成器(使用过后，再次使用就是空对象)
+# print('压缩两个并转成list-------', list(zip_obj))                         # [('one', 1), ('two', 2), ('three', 3)]
+# print('压缩两个并转成dict', dict(zip_obj))                                # {'one': 1, 'two': 2, 'three': 3}    不注释上一行，则此处为空字典
+# print('压缩多个并转成list-------', list(zip(seq, seq1, seq2, seq3)))       # 元素个数与最短的列表一致   [('one', 1, 4, 8), ('two', 2, 5, 9), ('three', 3, 6, 10)]
+# print('压缩多个并转成dict-------', dict(zip(seq, seq1, seq2, seq3)))       # 报错
+
+# a, b = zip(*zip(seq, seq1))
+# c, d = zip(*zip_obj)                      # 会报错
+# print('解压------', list(a), list(b))
+
+
+
+
 
 # 文件操作
 # 打开文件
