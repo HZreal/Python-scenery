@@ -7,6 +7,7 @@ print(t)
 print(t.strftime('%Y-%m-%d %H:%M:%S'))
 print(t.time())                   # 返回当前时间的日期
 print(t.date())                  # 返回当前的时间对象
+# print(datetime.datetime.utcnow())
 
 print('-----------------------------------------------------------\n')
 

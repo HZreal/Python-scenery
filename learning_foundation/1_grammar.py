@@ -24,7 +24,7 @@ print("没问题")
 ''''''
 i = 1
 result = 0
-while i<= 100:
+while i <= 100:
     if i % 2 == 0:
         result += i
     i += 1
@@ -720,20 +720,26 @@ s5 = {}   #创建空字典
 # print('解压------', list(a), list(b))
 
 
-
-
-
 # 文件操作
 # 打开文件
-# open(name, mode)         # name:目标文件名字符串或者目标文件路径         mode:访问模式  省略时默认为r
+# open(name, mode, buffering)
+# name:目标文件名字符串或者目标文件路径
+# mode:访问模式  省略时默认为r
+# buffering设置缓冲
 
-# 访问模式
+# 访问模式mode
 #   r: 只读,不可写，r模式打开文件不存在时会报错
 #   w: 只写 ,文件不存在则新建文件，执行写入，会覆盖原有内容
 #   a: 追加  ----文件不存在则新建，在原有内容上新增内容
 #   rb:
 #   wb:
 
+# 设置缓冲buffering
+
+# buffering=-1 系统默认缓冲
+# buffering=0或者False      关闭缓冲   只能在二进制模式下设置
+# buffering=1或者True       选择为行缓冲  只能在text模式下可用
+# buffering>1              表示缓冲区块大小
 
 # f = open('text1.txt', 'r')
 # f.write('aaa')
@@ -749,7 +755,7 @@ s5 = {}   #创建空字典
 
 
 # 文件数据读取
-# read(num)   ------num为读取长度，默认一次性读取所有，文件过大时不可取，容易造成内存不够崩溃
+# read(size)   ------size为读取字节数长度，默认为-1表示一次性读取所有，文件过大时不可取，容易造成内存不够崩溃
 # f = open('text.txt', 'r')
 # print(f.read())                 # 读取所有
 # print(f.read(10))               # 换行符\n 也是一个字符
@@ -776,6 +782,8 @@ s5 = {}   #创建空字典
 # 文件指针位置whence：    0表示文件开头   1表示当前位置   2表示文件结尾
 # f.seek(offset, whence)
 # f.seek(0, 0)
+
+
 
 
 # 文件备份
@@ -850,8 +858,19 @@ s5 = {}   #创建空字典
 #     os.rename(i,new_name)
 
 
-# 生成6位随机码
-# import random
-# for i in range(20):
-#     num = '%06d' % random.randint(0, 999999)
-#     print(num)
+# py3.8新语法，支持在表达式中赋值
+# 赋值表达式使用海象运算符 := 在表达式中为变量赋值
+# a = 4
+# if b := 4 == a:
+#     print('111')
+#
+# c = (d := 0)
+# print(c)
+
+
+# f = open('text.txt', 'r')
+# print(f.read())
+# while chunk := f.read():
+#     print(chunk)
+
+

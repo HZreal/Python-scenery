@@ -9,7 +9,7 @@ class File(object):
         self.file_name = file_name
         self.file_mode = file_mode
 
-    #TODO
+    # TODO
     # 上文方法，负责返回操作对象资源。比如文件对象，数据库连接对象
     # with语句执行前，自动执行
     def __enter__(self):

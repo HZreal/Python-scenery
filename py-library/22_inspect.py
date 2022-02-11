@@ -6,10 +6,13 @@
 # 　　4.解析堆栈
 
 import inspect
+
 # 一、type and members
 # 1. inspect.getmembers(object[, predicate])
 """Return all members of an object as (name, value) pairs sorted by name.
     Optionally, only return members that satisfy a given predicate."""
+
+
 # 返回值为object的所有成员，为一个元组列表，列表元素是元组（name, value）
 
 
@@ -56,8 +59,6 @@ b = inspect.getmembers(obj, inspect.isclass(obj))
 #  	         im_self or __self__
 
 
-
-
 # 2. inspect.getmoduleinfo(path)： 返回一个命名元组<named tuple>(name, suffix, mode, module_type)
 #       name：模块名（不包括其所在的package）
 #       suffix：
@@ -77,7 +78,6 @@ b = inspect.getmembers(obj, inspect.isclass(obj))
 # 6. inspect.getsourcelines(object)：返回object的python源文件代码的内容，行号+代码行
 # 7. inspect.getsource(object)：以string形式返回object的源代码
 # 8. inspect.cleandoc(doc)：
-
 
 
 # 三、class and functions
@@ -109,21 +109,3 @@ b = inspect.getmembers(obj, inspect.isclass(obj))
 # 4. inspect.currentframe()
 # 5. inspect.stack([context])
 # 6. inspect.trace([context])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
