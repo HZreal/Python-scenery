@@ -4,7 +4,7 @@
 查看redis服务器进程
 ps aux | grep redis
 lsof -i :6379
-netstat -tnlp
+netstat -tunlp
 
 sudo kill -9 pid 杀死redis服务器
 

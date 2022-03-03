@@ -3,6 +3,9 @@
 # 根据程序员制定的规则循环生成数据，当条件不成立时则生成数据结束。
 # 数据不是一次性全部生成处理，而是使用一个，再生成一个，可以节约大量的内存
 
+# 生成器是一种特殊的可迭代对象，它会延迟加载元素，直到被请求才会加载。这在处理大量数据时会非常高效，它能提升存储效率。
+# 相比之下，list 对象为了方便计数和索引，一次性创建所有的元素。所以跟生成器相比，在元素个数相同时，list 需要占用更多内存
+
 # 创建生成器有两种方式：
 # 1.类似于列表推导式，中括号改成小括号即可
 # 2. yield关键字，在函数里有yield，可以认为该函数就是一个生成器，每执行到yield，生成器就会自动弹出一个值
@@ -116,25 +119,19 @@
 
 
 
-def generate():
-    i = 0
-    while i < 5:
-        print("before yield --------")
-        xx = yield i
-        print(xx)
-        i += 1
-
-g = generate()
-r = g.send(None)  # <==> next(g) 第一次启动，执行到yield i（此时i=0），挂起任务，主程序继续往下执行
-print(r)
-r = g.send("lalala")  # 第二次唤醒生成器，从上次的yield i 处继续执行，即往左执行，把lalala赋值给xx后，往下执行，直到下次的yield i（此时i=1），挂起任务
-print(r)
-
-
-
-
-
-
+# def generate():
+#     i = 0
+#     while i < 5:
+#         print("before yield --------")
+#         xx = yield i
+#         print(xx)
+#         i += 1
+#
+# g = generate()
+# r = g.send(None)  # <==> next(g) 第一次启动，执行到yield i（此时i=0），挂起任务，主程序继续往下执行
+# print(r)
+# r = g.send("lalala")  # 第二次唤醒生成器，从上次的yield i 处继续执行，即往左执行，把lalala赋值给xx后，往下执行，直到下次的yield i（此时i=1），挂起任务
+# print(r)
 
 
 

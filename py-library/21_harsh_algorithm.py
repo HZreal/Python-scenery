@@ -13,6 +13,12 @@ print(md5_value)                       # 059ac3f7bcb536cfc295d028c5c64ec6
 
 
 
+
+# hash(obj)    # 对对象取哈希值
+
+
+
+
 # url数量上亿进行哈希操作存redis
 # url-hash
 # 布隆过滤器

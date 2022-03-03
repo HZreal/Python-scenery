@@ -698,6 +698,9 @@ s5 = {}   #创建空字典
 #     return x % 2 == 0
 # result = filter(func, list3)
 # print(list(result))
+# list3 = ['', 123, '123', [], {'a': 'b'}, (), ['a', 3]]
+# for i in filter(None, list3):
+#     print(i)
 
 # zip函数：参数为多个可迭代对象
 # 用于将这多个对象中下标索引对应的元素打包成一个元组，返回一个列表(py2.x)或者一个zip对象(py3.x)
