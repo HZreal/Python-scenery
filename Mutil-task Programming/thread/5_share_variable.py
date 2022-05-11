@@ -21,8 +21,8 @@
 #
 #     add_thread.start()
 #     join函数：主线程(main_thread)等待当前子线程(add_thread)执行完成，代码再继续往下执行
-# add_thread.join()       # 线程同步，使添加数据线程先执行完
-# read_thread.start()
+#     add_thread.join()       # 线程同步，使添加数据线程先执行完
+#     read_thread.start()
 
 
 # 线程之间共享全局变量数据出现错误问题

@@ -1,5 +1,5 @@
 # 通用装饰器
-# 基本原则：内部函数的参数类型以及是否有返回值与被装饰的函数保持一致
+# 基本原则：内部函数inner的参数类型以及是否有返回值与被装饰的函数保持一致!!!
 
 # -----------------装饰带有参数的函数-------------------
 # def decorator(func):
@@ -35,17 +35,13 @@
 
 
 
-# ---------------装饰带有不定长参数和返回值的函数-----------------
-# 此装饰器称为通用装饰器
+# ---------------装饰带有不定长参数和返回值的函数-------称通用装饰器-------------------
 def decorator(func):
-    def inner(*args, **kwargs):
-        print('计算进行中...')
+    print('start decorate, you can do some decorate-related operation here ------')
 
-        # *args把元组里面的每一个元素按照位置参数的方式进行传参
-        # **kwargs把字典里面的每一个键值对按照关键字参数的方式进行传参
-        # 这里对元组和字典进行拆包，仅限于结合不定长参数的函数使用
-        result = func(*args, **kwargs)       # 函数没有返回值时，接收的为None
-        return result
+    def inner(*args, **kwargs):
+        print('you can do some other operation here before origin func ------')
+        return func(*args, **kwargs)   # 函数没有返回值时，接收的为None
     return inner
 
 @decorator
@@ -62,7 +58,7 @@ def add(*args, **kwargs):        # args 为元组类型; kwargs 为字典类型
     return result
 
 result = add(1, 5)
-print(result)
+print('result', result)
 
 
 @decorator
