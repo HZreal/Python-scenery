@@ -37,7 +37,7 @@ print(add_sum)
 # 装饰的过程中，可以进行适当操作，
 # 装饰过程的最后是否return
 #         a. 没有return时，原被装饰函数func=None
-#         b. 有return时，原被装饰函数func被覆盖为return的结果，通常为一个闭包函数
+#         b. 有return时，原被装饰函数func被覆盖为return的结果，通常为一个闭包
 class InstanceDecorator:
     def __init__(self, d1, d2):                # 类初始化(即装饰器初始化)时传参，即带参装饰器
         self.d1 = d1
@@ -51,7 +51,7 @@ class InstanceDecorator:
         """
         pass
 
-    def __call__(self, func):                  # 相当于装饰器函数
+    def __call__(self, func):                  # 相当于装饰器函数，被装饰函数作为参数func传入
         print('start decorate, you can do some decorate-related operation here ------')
 
         def wrapper(*args, **kwargs):          # 被装饰函数func有参数时被args/kwargs接收
@@ -69,7 +69,7 @@ class InstanceDecorator:
 def hello_func_without_params():
     print('----hello_func_without_params is executing------')
 
-print('hello_func1 ===========', hello_func_without_params)            # 为闭包函数
+print('hello_func1 ===========', hello_func_without_params)            # 为一个闭包
 hello_func_without_params()
 
 @InstanceDecorator(d1='dd33', d2='dd44')
