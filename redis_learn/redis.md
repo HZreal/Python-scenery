@@ -124,6 +124,8 @@ ps: 用户购物车类型为hash类型
     srem key member1               删除某个member
     sismember                      判断某个数据是否在集合中
 
+查看元素是否在set中的速度O(1)比在list中的速度O(n)更快
+
 
 ### zset类型
 
@@ -391,22 +393,6 @@ Redis如何判断某个key应该在哪个实例？
 * 命令 slaveof host port，指定当前节点为某个host:port的从节点
 * 配置文件创建redis服务时，修改slaveof <masterip> <masterport>
 
-### Python客户端连接redis集群
-
-    # redis 集群
-    REDIS_CLUSTER = [
-        {'host': '127.0.0.1', 'port': '7000'},
-        {'host': '127.0.0.1', 'port': '7001'},
-        {'host': '127.0.0.1', 'port': '7002'},
-    ]
-    
-    from rediscluster import StrictRedisCluster
-    redis_cluster = StrictRedisCluster(startup_nodes=REDIS_CLUSTER)
-    
-    # 可以将redis_cluster就当作普通的redis客户端使用
-    redis_master.delete(key)
-
-
 ### 集群伸缩
 
 redis-cli提供了很多操作集群的命令，可以通过redis-cli --cluster help查看
@@ -477,7 +463,20 @@ RedisTemplate底层同样基于lettuce实现了分片集群的支持，而使用
 
 与哨兵模式相比，其中只有分片集群的配置方式略有差异
 
+### Python客户端连接redis集群
 
+    # redis 集群
+    REDIS_CLUSTER = [
+        {'host': '127.0.0.1', 'port': '7000'},
+        {'host': '127.0.0.1', 'port': '7001'},
+        {'host': '127.0.0.1', 'port': '7002'},
+    ]
+    
+    from rediscluster import StrictRedisCluster
+    redis_cluster = StrictRedisCluster(startup_nodes=REDIS_CLUSTER)
+    
+    # 可以将redis_cluster就当作普通的redis客户端使用
+    redis_master.delete(key)
 
 ## 用途
 

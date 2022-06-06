@@ -12,7 +12,7 @@ def connect_redis():
 
         # password仅在redis配置了requirepass时使用，无需用户名   https://redis.io/commands/AUTH
         # username仅在redis6.0版本以后且设置ACL时才使用        https://redis.io/topics/acl
-        r = redis.Redis(host='192.168.197.129', port=6379, db=0, password='root123456')
+        r = redis.Redis(host='127.0.0.1', port=6379, db=0)
     except Exception as e:
         print(e)
 

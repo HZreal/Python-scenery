@@ -29,18 +29,18 @@ SEQUENCE_MASK = -1 ^ (-1 << SEQUENCE_BITS)
 TWEPOCH = 1288834974657
 
 
-logger = logging.getLogger('flask.app')
+# logger = logging.getLogger('flask.app')
 
 
 class IdWorker(object):
     """
-    用于生成IDs
+    用于生成分布式ID
     """
 
     def __init__(self, datacenter_id, worker_id, sequence=0):
         """
         初始化
-        :param datacenter_id: 数据中心（机器区域）ID
+        :param datacenter_id: 数据中心(机器区域)ID， 或者说机房ID
         :param worker_id: 机器ID
         :param sequence: 其实序号
         """
@@ -101,4 +101,5 @@ class IdWorker(object):
 
 if __name__ == '__main__':
     worker = IdWorker(1, 2, 0)
-    print(worker.get_id())
+    distribute_id = worker.get_id()
+    print(distribute_id)
