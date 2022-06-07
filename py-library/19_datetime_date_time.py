@@ -2,6 +2,11 @@ import datetime
 import time
 
 
+# UTC时间      ------>  时间统一协调时间
+# unix时间戳   ------>   自UTC1970年1月1号至当前时间的总秒数
+# 当地时间     ------>  如北京时间，比UTC时间快8小时
+
+
 # 一、datetime模块里的date类
 # date对象是日期的专属对象，语法格式如下：
 # datetime.date(year, month, day)，参数分别代表年月日
