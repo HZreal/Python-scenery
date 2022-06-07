@@ -37,26 +37,35 @@ from apscheduler.executors.pool import BasePoolExecutor, ProcessPoolExecutor, Th
 
 import datetime, time
 
-# 阻塞式调度
+
+# 阻塞式调度，作为独立进程时使用
+# start启动时，程序会发生阻塞，停止在此，防止退出
 # schedule = BlockingScheduler()
-# 后台非阻塞式调度(主线程退出会导致子线程销毁而不执行)
+
+# 后台非阻塞式调度(主线程退出会导致子线程销毁而不执行)，在框架程序（如Django、Flask）中使用
+# start启动时，程序不会发生阻塞，以子程序进行，主程序继续执行
 schedule = BackgroundScheduler()
+
 
 # 创建调度器时的配置
 jobstores = {
     # 'mongo': MongoDBJobStore(),
     # 'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
 }
+# 执行器，以进程或线程方式执行任务
 executors = {
-    'default': ThreadPoolExecutor(20),
-    'processpool': ProcessPoolExecutor(5)
+    'default': ThreadPoolExecutor(20),         # 最多20个线程同时执行
+    'processpool': ProcessPoolExecutor(5)      # 最多5个进程同时执行
 }
 job_defaults = {
     'coalesce': False,
     'max_instances': 3
 }
-# 创建调度器时就指定jobstores、executors、job_defaults
-scheduler3 = BlockingScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
+# 创建调度器时指定jobstores、executors、job_defaults等配置，两种方式如下:
+scheduler2 = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
+scheduler3 = BackgroundScheduler()
+scheduler3.configure(executors=executors)
+
 
 
 class CustomJobStore(MemoryJobStore):
@@ -96,7 +105,7 @@ def task3(params, params1, params2):
 if __name__ == '__main__':
 
     # 动态添加任务(此方式返回job实例，后续可动态操作)
-    # 触发器date：作业任务只会执行一次。它表示特定的时间点触发。参数run_date (datetime 或 str)
+    # 触发器date：作业任务只会执行一次。它表示特定的时间点触发。参数run_date(类型date、datetime 或 str)
     schedule.add_job(task1, 'date', run_date=datetime.date(2021, 11, 24), jobstore='default', id='date_task1')
     # job = schedule.add_job(task1, 'date', run_date=datetime.datetime(2021, 11, 24, 11, 38, 59))
     # schedule.add_job(task1, 'date', run_date='2021-12-13 14:09:47')
@@ -115,8 +124,8 @@ if __name__ == '__main__':
     # 获取任务列表(若指定jobstore，则返回指定jobstore下的任务)
     job1 = schedule.get_job(job_id='date_task1', jobstore='default')  # 根据id返回指定job实例
     job2 = schedule.get_job(job_id='interval_task1', jobstore='custom')  # 根据id返回指定job实例
-    default_job_list = schedule.get_jobs(jobstore='default')  # 返回所有的job实例列表
-    custom_job_list = schedule.get_jobs(jobstore='custom')  # 返回所有的job实例列表
+    default_job_list = schedule.get_jobs(jobstore='default')  # 返回某个jobstore空间中所有的job实例列表
+    custom_job_list = schedule.get_jobs(jobstore='custom')    # 返回某个jobstore空间中所有的job实例列表
     print('job1=======>%s' % job1, 'job2=======>%s' % job2, 'default_job_list=======>%s' % default_job_list,
           'custom_job_list=======>%s' % custom_job_list, sep='\n')
 
@@ -134,6 +143,11 @@ if __name__ == '__main__':
     # schedule.remove_job('interval_task1', jobstore='')
     # job_task1.remove()
 
+    # 调整任务调度周期
+    # job_task1.modify(max_instances=6, name='Alternate name')
+    # schedule.reschedule_job('date_task1', trigger='cron', minute='*/5')
+
+    # 调度器启动
     schedule.start()
 
     # 关闭调度器  默认情况下调度器会等待所有正在运行的作业完成后，关闭所有的调度器和作业存储。如果你不想等待，可以将wait选项设置为False
