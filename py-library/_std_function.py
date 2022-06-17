@@ -1,3 +1,5 @@
+import functools
+
 # python内置高阶函数
 from functools import reduce, wraps, partial, update_wrapper
 
@@ -5,22 +7,48 @@ from functools import reduce, wraps, partial, update_wrapper
 # 用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表,第一个为函数，第二个为序列
 filter(lambda x: x % 3 == 0, [1, 2, 3, 4, 5, 6])  # [3, 6]
 
-# map(function, iterable)
-# 会根据提供的函数对指定序列做映射，即以序列中的每一个元素调用function函数，返回包含每次function函数返回值的新列表
-map(lambda x: x ** 2, range(5))  # [0, 1, 4, 9, 16]
 
 # sorted(iterable, cmp, key, reverse)
 # 函数对所有可迭代的对象进行排序操作
 # 参数：cmp--比较函数  key--可迭代类型中某个属性，对给定元素的每一项进行排序   reverse--排序规则，reverse=True降序，reverse=False升序（默认）
-
+data_list = [12, 23, 11, 14, 51, 32, 49]
+ss = sorted(data_list, key=lambda x: x / 10 + x % 10, reverse=True)       # 十位数与个位数之和的降序排列
+print('ss -----', ss)
 # list.sort( key=None, reverse=False)用于对原列表进行排序，如果指定参数，则使用比较函数指定的比较函数
 # 参数：key--主要是用来进行比较的元素  reverse--排序规则
+persons = [['Alice', 26, 'F'], ['Trudy', 25, 'M'], ['Bob', 25, 'M'], ['Alexa', 22, 'F']]
+persons.sort(key=lambda x : x[1])
+print(persons)
+
+def compare_1(person_a, person_b):
+    if person_a[2] == person_b[2]:  # if their gender become same
+        return person_a[1] - person_b[1]  # return True if person_a is younger
+    else:  # if their gender not matched
+        if person_b[2] == 'F':  # give person_b first priority if she is female
+            return 1
+        else:  # otherwise give person_a first priority
+            return -1
+persons.sort(key=functools.cmp_to_key(compare_1))
+
+def compare_2(a1, a2):
+    return (a1 / 10 + a1 % 10) - (a2 / 10 + a2 % 10)
+
+    # if (a1 / 10 + a1 % 10) - (a2 / 10 + a2 % 10) > 0:
+    #     return 1
+    # else:
+    #     return -1
+# data_list.sort(key=functools.cmp_to_key(compare_2), reverse=True)
+data_list.sort(key=functools.cmp_to_key(lambda x, y: (x / 10 + x % 10) - (y / 10 + y % 10)), reverse=True)
+print('data_list -----', data_list)
+
 
 # sort 与 sorted 区别：
 # sort是应用在list上的方法，sorted可以对所有可迭代的对象进行排序操作。
 # list的sort方法在原内存空间上进行操作，对列表本身进行修改，不返回副本，而内建函数sorted方法不是在原内存空间上进行的操作，而是返回一个新的list
 ali = [('b', 3), ('a', 2), ('d', 4), ('c', 1)]
 sorted(ali, key=lambda x: x[0])  # 表示根据可迭代对象的第一个元素进行排序，即按照字母排序 [('a',2),('b',3),('c',1),('d',4)]
+
+
 
 # reduce(function, iterable)
 # 会对参数序列中元素进行累积，先对集合中的第1、2个元素进行func操作，得到的结果再与第三个数据进行func操作，依次执行到最可迭代对象最后一个元素后
@@ -29,6 +57,9 @@ print(reduce_res)
 
 # map(func, list)  --------------将传入的函数变量func作用到list变量的每个元素中,并将结果组成新的列表py2/迭代器py3
 list1 = [1, 2, 3, 4, 5]
+# map(function, iterable)
+# 会根据提供的函数对指定序列做映射，即以序列中的每一个元素调用function函数，返回包含每次function函数返回值的新列表
+map(lambda x: x ** 2, range(5))  # [0, 1, 4, 9, 16]
 
 
 def func(x):
@@ -38,6 +69,9 @@ def func(x):
 result = map(func, list1)
 print(result)
 print(list(result))  # 需要转换数据类型才能打印输出
+
+
+
 
 # reduce(func, list)   -----------其中func必须有两个参数，每次func计算的结果继续和序列的下一个元素做累积计算
 import functools

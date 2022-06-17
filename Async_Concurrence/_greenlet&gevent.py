@@ -1,4 +1,8 @@
-# greenlet属于更底层的异步协程实现， 需要人工切换
+# greenlets属于更底层的异步协程实现， 需要人工切换
+# gevent是基于协程的Python网络库，依赖于greenlets
+# eventlet是一个并发网络库
+
+
 
 from greenlet import greenlet
 import time
