@@ -52,3 +52,5 @@ print(sys.argv[1])                   #  argv[1]获取到第二个参数 aaaaa
 # os.path.isabs(path)	             # 判断是否为绝对路径
 # os.path.isfile(path)	             # 判断路径是否为文件
 # os.path.isdir(path)	             # 判断路径是否为目录
+
+

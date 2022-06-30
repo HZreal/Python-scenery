@@ -76,9 +76,6 @@
 #     print(value)
 
 
-
-
-
 # next 与 send 区别
 # def foo():
 #     print("starting...")
@@ -118,7 +115,6 @@
 # 解析：执行send到yield时，是会执行赋值操作给res传参的，并弹出值
 
 
-
 # def generate():
 #     i = 0
 #     while i < 5:
@@ -135,18 +131,29 @@
 
 
 
+def A():
+    a_list = ['1', '2', '3']
+    for to_b in a_list:
+        from_b = yield to_b
+        print('receive %s from B' % (from_b,))
+        print('do some complex process for A during 200ms ')
 
+def B(a):
+    from_a = a.send(None)
+    print('response %s from A ' % (from_a,))
+    print('B is analysising data from A')
+    b_list = ['x', 'y', 'z']
+    try:
+        for to_a in b_list:
+            from_a = a.send(to_a)
+            print('response %s from A ' % (from_a,))
+            print('B is analysising data from A')
+    except StopIteration:
+        print('---from a done---')
+    finally:
+        a.close()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+def run():
+    a = A()
+    B(a)
+    # 可看到，协程是在同一个线程中，不同函数间交替的、协作的执行完成任务。

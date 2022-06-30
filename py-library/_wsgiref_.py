@@ -21,9 +21,21 @@
 
 
 from wsgiref.simple_server import make_server, demo_app
+from wsgiref.util import setup_testing_defaults
+
+def app(environ, start_response):
+    # setup_testing_defaults(environ)
+    print('enter ----------')
+    # print(environ, start_response)
+
+    return [b'hello world']
 
 # 创建server
-ws = make_server('127.0.0.1', 9999, demo_app)
+# ws = make_server('127.0.0.1', 9999, demo_app)
+ws = make_server('127.0.0.1', 9999, app)
+
+
+
 
 # 启动服务
 ws.serve_forever()

@@ -1,6 +1,6 @@
 # 生成器的应用：    Fibonacci数列  0, 1, 1, 2, 3, 5, 8, 13 ...
 
-def fibonacci(num):     #表示生成的个数
+def fibonacci(num):     # 表示生成的个数
     a = 0
     b = 1
     index = 0

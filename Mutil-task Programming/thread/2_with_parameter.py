@@ -1,8 +1,11 @@
 import threading
 
 
+
+
 def show_info(name, age):
     print(name, age)
+
 
 
 if __name__ == '__main__':

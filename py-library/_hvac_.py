@@ -1,6 +1,9 @@
 import hvac
 import sys
 
+# python hvac包 调用 vault 存取密钥/获取PKI证书
+
+
 # Authentication
 client = hvac.Client(
     url='http://127.0.0.1:8200',

@@ -13,13 +13,13 @@
 # 协程，调度完全由用户控制
 #     一个线程（进程）可以有多个协程
 #     每个线程（进程）循环按照指定的任务清单顺序完成不同的任务（当任务被堵塞时，执行下一个任务；当恢复时，再回来执行这个任务；任务间切换只需要保存任务的上下文，没有内核的开销，可以不加锁的访问全局变量）
-#     协程需要保证是非堵塞的且没有相互依赖
+#     协程需要保证是非堵塞的，且没有相互依赖
 #     协程基本上不能同步通讯，多采用异步的消息通讯，效率比较高
 
 # python协程奉行共享内存来通信，而不是通过通信来共享内存(GO语言协程直接通过channel通信)
 # 在协程函数内部 return 任意的Python内置类型、例如整数、字符串、列表、或任意object的派生类型，Python解释器默许你这么做。这是合法的，Python会隐式封装成一个可等待对象返回。
 
-#   event_loop 事件循环：程序开启一个无限的循环，程序员会把一些函数（协程）注册到事件循环上。当满足事件发生的时候，调用相应的协程函数。
+#   event_loop 事件循环：程序开启一个无限的循环，程序员会把一些函数（协程）注册到事件循环上。当满足事件发生的时候，调用相应的协程函数。执行协程函数，必须使用事件循环!
 #   coroutine 协程：协程对象，指一个使用async关键字定义的函数，它的调用不会立即执行函数，而是会返回一个协程对象。协程对象需要注册到事件循环，由事件循环调用。
 #   future 对象： 代表将来执行或没有执行的任务的结果。它和task上没有本质的区别。
 #   task 任务：一个协程对象就是一个原生可以挂起的函数，任务则是对协程进一步封装，其中包含任务的各种状态。Task 对象是 Future 的子类，它将 coroutine 和 Future 联系在一起，将 coroutine 封装成一个 Future 对象。
@@ -33,7 +33,9 @@
 # 执行协程函数得到协程对象，函数内部代码不会执行
 # 执行协程函数内部代码，必须把协程对象交给事件循环处理
 
-# await + 可等待对象（协程对象，Future，Task对象（IO等待））   等待到对象的返回结果，才会继续执行后续代码
+# await + 可等待对象（协程对象，Future对象，Task对象（IO等待））   等待到对象的返回结果，才会继续执行后续代码
+# await调用被async def定义的函数或者实现了__await__()的类
+# await 的作用就是等待当前的协程运行结束之后再继续进行下面代码。
 
 # asyncio 库的 sleep() 机制与 time.sleep() 不同, 前者是 “假性睡眠”, 模拟协程函数的睡眠，后者是会导致线程阻塞的 "真性睡眠"
 
@@ -41,27 +43,45 @@
 import asyncio
 import time
 import random
+import typing
+
 import requests
 
 
+
+class A:
+    def __init__(self):
+        pass
+    def __await__(self):
+        pass
+
 async def hello():
+    # await A()
     await asyncio.sleep(1)
-    print('hello ...')
-# hh = hello()          # <coroutine object>
-# print(hh)
+    print('executing hello function ...')
+    return 'data from hello function'
+# print(hello())               # <coroutine object>  执行协程函数得到协程对象，函数内部代码不会执行
+# print(hello().send(None))
+
+def asyncio_attr_func():
+    # 协程对象、asyncio的相关属性方法等
+    g = hello().__await__()
+    is_coroutine = asyncio.iscoroutine(hello())
+    is_coroutine_function = asyncio.iscoroutinefunction(hello())
+    awaitable = isinstance(hello(), typing.Awaitable)
+    coroutine = isinstance(hello(), typing.Coroutine)
+    is_await = hasattr(hello(), '__await__')
+    print(g, is_coroutine, is_coroutine_function, awaitable, coroutine, is_await)
 
 def run():
-    coroutine_1 = hello()
-
-    # loop = asyncio.get_event_loop()
-    # loop.run_until_complete(coroutine_1)
-
-    asyncio.run(coroutine_1)
+    # 创建一个事件循环对象，用于管理协程
+    event_loop = asyncio.get_event_loop()
+    # 时间循环调度执行协程(参数可以是一个协程，或者一个task对象)
+    res = event_loop.run_until_complete(hello())
+    print('res ----  ', res)
 
 
 #####################################################################################################################
-
-
 # await等待多个协程
 async def add_prefix(what, delay=1):
     print('exec add_prefix time ----->  ', time.strftime('%X'))
@@ -75,19 +95,11 @@ async def run1():
     s2 = await add_prefix('world', 2)
     print(s1 + s2)
 
-    # tasks = [
-    #     add_prefix('hello', 1),
-    #     add_prefix('world', 2)
-    # ]
-    # loop = asyncio.get_running_loop()
-    # loop.run_until_complete(asyncio.wait(tasks))
-
-
     print(f"finished at {time.strftime('%X')}")
 
-# asyncio.create_task() 协程添加到task中
 async def run2():
-    # 创建两个任务，两个任务同时执行，后续在需要的地方await阻塞获取结果
+    # 创建两个任务，两个任务被调度执行，后续在需要的地方await阻塞获取结果
+    # asyncio.create_task方法封装了创建事件循环对象loop并调用loop.create_task创建task
     task1 = asyncio.create_task(add_prefix('hello', 1))
     task2 = asyncio.create_task(add_prefix('world', 2))
 
@@ -106,6 +118,7 @@ async def run2():
 
 
 #####################################################################################################################
+# 模拟爬虫
 url_list = [
     "https://www.baidu.com",
     "https://www.baidu.com",
@@ -148,55 +161,63 @@ async def spider2():
     print("end_time:  ", end_time)
     print("all_execute_time:  ", sep_time)
 
+
 #####################################################################################################################
-
-
 start = time.time()
 
 def take_time():
-    return "%1.2f秒" % (time.time()-start)
+    return "%1.2f秒" % (time.time() - start)
 
 async def task_A():
     print("运行task_A")
-    await asyncio.sleep(random.uniform(1.0,8.0)/10)
+    await asyncio.sleep(random.uniform(1.0, 8.0) / 10)
     print(f"task_A结束!!耗时{take_time()}")
 
 async def task_B():
     print("运行task_B")
-    await asyncio.sleep(random.uniform(1.0,8.0)/10)
+    await asyncio.sleep(random.uniform(1.0, 8.0) / 10)
     print(f"task_B结束!!耗时{take_time()}")
 
 async def task_C():
     print("运行task_C")
-    await asyncio.sleep(random.uniform(1.0,8.0)/10)
+    await asyncio.sleep(random.uniform(1.0, 8.0) / 10)
     print(f"task_C结束!!耗时{take_time()}")
 
 async def task_exect():
-    tasks=[task_A(),task_B(),task_C()]
-    await asyncio.gather(*tasks)
-
+    cors = [task_A(), task_B(), task_C()]
+    await asyncio.gather(*cors)          # 调度顺序按照cors列表元素顺序；若协程有返回值，则gather也会返回一个列表存储，顺序与cors列表一致
+# 执行输出:
+# 运行task_A
+# 运行task_B
+# 运行task_C
+# task_C结束!!耗时0.56秒
+# task_A结束!!耗时0.71秒
+# task_B结束!!耗时0.79秒
+# 分析:
 # task_A、task_B和task_C之间在各自I/O状态等待时间是不可预知的，也就是说三个携程的各自await语句的后半部分的代码执行顺序是随机。
+
 
 #####################################################################################################################
 
 
-def ff(value):
-    return value / 10 + value % 10
-
-a = [12, 23, 11, 14, 51, 32, 49]
-s1 = a.sort(key=ff)
-print(s1)
-ss = sorted(a, key=lambda x: x / 10 + x % 10, reverse=True)
-print(ss)
 
 if __name__ == "__main__":
+
+    asyncio_attr_func()
+
+    # 自定义创建事件对象再执行
     # run()
+
+    # py3.7省略了创建事件循环等过程，封装在run方法中直接执行协程，执行完成后创建的事件循环被关闭。
+    # asyncio.run(hello())
+
     # asyncio.run(run1())
     # asyncio.run(run2())
+
     # spider1()
     # asyncio.run(spider2())
 
-
+    # asyncio.run(task_exect())
 
     pass
 

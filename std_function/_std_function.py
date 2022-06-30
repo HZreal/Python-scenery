@@ -41,6 +41,11 @@ def compare_2(a1, a2):
 data_list.sort(key=functools.cmp_to_key(lambda x, y: (x / 10 + x % 10) - (y / 10 + y % 10)), reverse=True)
 print('data_list -----', data_list)
 
+# 字典按值排列
+score_map = {'language': 88, 'math': 89, 'english': 78}
+sorted_score = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
+print('=========字典按值排列==========', sorted_score)
+
 
 # sort 与 sorted 区别：
 # sort是应用在list上的方法，sorted可以对所有可迭代的对象进行排序操作。

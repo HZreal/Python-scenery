@@ -516,6 +516,10 @@ s5 = {}   #创建空字典
 # list8 = [(i,j) for i in range(1,3) for j in range (0,3)]
 # print(list8)
 #
+x_list = [1, 2, 3]
+y_list = ['a', 'b', 'c']
+aaa_list = [(x, y) for x in x_list for y in y_list]
+print('aaa list ---', aaa_list)
 
 
 # 字典推导式 -------------快速合并列表为字典或者提取字典中的目标数据
