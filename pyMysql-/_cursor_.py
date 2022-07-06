@@ -52,6 +52,11 @@ def run4():
     ssdictcursor = pymysql.cursors.SSDictCursor(conn)
     pass
 
+def run5():
+    cursor = conn.cursor()
+    # 执行存储过程
+    cursor.callproc('test_procedure', [1, 'test'])
+
 
 if __name__ == '__main__':
     # run()
