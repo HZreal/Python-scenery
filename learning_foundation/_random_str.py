@@ -18,12 +18,11 @@ def get_random_code(bit: int) -> str:
     print('备选特殊字符--->', c)
 
     # 生成的随机串，列表存储
-    random_list = random.sample(a + b + c, bit)  # 返回列表
-    print(len(random_list), random_list)
+    select_str = a + b + c
+    random_list = random.sample(select_str, bit)         # 从select_str字符串中随机选择30次，返回一个随机串列表
 
     # 列表转字符串
     random_str = ''.join(random_list)
-    print(random_str)
     return random_str
 
 
@@ -31,8 +30,7 @@ def generate_count_number(count: int, bit: int = 6):
     """
     生成count个，bit位随机码
     """
-    print('生成的个数count--->', count)
-    print('生成的位数bit--->', bit)
+    print(f'---------生成 {count} 个{bit}位随机数----------')
 
     _bit = bit
     # print(f'%0{_bit}d')
@@ -44,10 +42,10 @@ def generate_count_number(count: int, bit: int = 6):
             break
         _bit -= 1
         max_num += 9 * 10 ** _bit
-    print(max_num)
+    print(f'{bit}位数字的最大数值为---->  ', max_num)
 
     for i in range(count):
-        # 6位
+        # 6位 ----------如短信验证码
         # random_num = '%06d' % random.randint(0, 999999)
 
         # 10位
@@ -56,7 +54,7 @@ def generate_count_number(count: int, bit: int = 6):
         # bit位
         random_num = f'''%0{bit}d''' % random.randint(0, max_num)
 
-        # print(random_num)
+        print(f'生成的第{i+1}个数： ')
         yield random_num
 
 
@@ -70,6 +68,7 @@ def random_from_selector(selector: list):
 if __name__ == '__main__':
     # 生成32位随机串
     # random_str = get_random_code(32)
+    # print(random_str)
 
     # 生成count个，bit位随机码
     random_num_iterator = generate_count_number(count=3, bit=6)

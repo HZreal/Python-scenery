@@ -18,7 +18,7 @@ class DrugDog(Dog):
         print('追查毒品')
 
 class Police():
-    def work_with_dog(self,dog):     #给一个形参dog传入调用对象
+    def work_with_dog(self, dog):     # 给一个形参dog传入调用对象
         dog.work()
 
 ar = ArmyDog()

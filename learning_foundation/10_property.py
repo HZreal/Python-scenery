@@ -22,19 +22,29 @@ class Student(object):
         else:
             print('不合法的年龄')
 
+    @age.deleter
+    def age(self):
+        del self.__age
+
+
 
 # 注意：使用装饰器方式的property属性，函数名必须一致，即上面获取设置的两个age方法函数名必须一致，但不一定非要是age
 
-stu = Student()
+# stu = Student()
 # 获取私有属性
 # age = stu.age()         # 以前的做法
-age = stu.age  # 把方法当成属性来使用, 系统自动调用age()
-print(age)
+# age = stu.age           # 把方法当成属性来使用, 系统自动调用age()
+# print(age)
 
 # 设置私有属性
-stu.age = 22
-age = stu.age
-print(age)
+# stu.age = 22
+# age = stu.age
+# print(age)
+
+# 删除
+# del stu.age
+# print(stu.age)
+
 
 
 # 类属性方式的实现
@@ -53,9 +63,12 @@ class School(object):
         else:
             print('不合法年龄')
 
+    def del_num(self):
+        delattr(self, '__num')
+
     # property是一个类，初始化时调用初始化函数，参数有fget, fset, fdel, fdoc
     # 以后获取num时，系统会自动调用get_num函数；修改num时，系统会自动调用set_num函数；
-    num = property(get_num, set_num)
+    num = property(get_num, set_num, del_num)
 
 
 # TODO num究竟是什么？ 通过类调用会如何？
@@ -64,10 +77,8 @@ class School(object):
 
 # 获取私有属性
 sch = School()
-number2 = sch.num  # 系统自动调用get_num()
-print('number2', number2)
+print(sch.num)         # 系统自动调用get_num()
 
 # 设置私有属性
-sch.num = 25  # 系统自动调用set_num()
-number = sch.num
-print(number)
+sch.num = 25        # 系统自动调用set_num()
+print(sch.num)

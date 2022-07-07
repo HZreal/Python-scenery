@@ -240,30 +240,30 @@ pre.make_object()                         # 若make_object(self)里没有self.__
 
 # 私有属性和私有方法    ----------------不能继承给子类
 # 私有属性和私有方法只能在类里面访问和修改
-# class School():
-#     str1 = '123456'            # 此为类属性，若定义为私有，则需要通过类方法获取(后面讲)
-#     def __init__(self):
-#         self.name = 'Peking'
-#         self.__money = 20000
-#
-#     # 获取私有属性值
-#     def get_money(self):
-#         return self.__money
-#
-#     # 修改私有属性值
-#     def set_money(self):
-#         self.__money = input('请输入修改的值：')
-#
-#     def __info_private(self):
-#         print('这是私有方法')
-#
-# class Student(School):
-#     pass
+class School():
+    str1 = '123456'            # 此为类属性，若定义为私有，则需要通过类方法获取(后面讲)
 
-# sch = School()
-# stu = Student()
-# print(stu.name)
-# print(stu.money)                            # 报错
+    def __init__(self):
+        self.name = 'Peking'
+        self.__money = 20000
+
+    # 获取私有属性值
+    def get_money(self):
+        return self.__money
+
+    # 修改私有属性值
+    def set_money(self, money):
+        self.__money = money
+
+    def __info_private(self):
+        print('这是私有方法')
+
+class Student(School):
+    pass
+
+sch = School()
+stu = Student()
+print(stu.name)
 # print(stu.__money)                          # 报错
 # stu.__info_private()                        # 报错
 # print(sch.__money)                          # 报错

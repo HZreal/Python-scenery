@@ -64,6 +64,15 @@ class IdWorker(object):
         """
         return int(time.time() * 1000)
 
+    def _til_next_millis(self, last_timestamp):
+        """
+        等到下一毫秒
+        """
+        timestamp = self._gen_timestamp()
+        while timestamp <= last_timestamp:
+            timestamp = self._gen_timestamp()
+        return timestamp
+
     def get_id(self):
         """
         获取新ID
@@ -89,14 +98,6 @@ class IdWorker(object):
                  (self.worker_id << WOKER_ID_SHIFT) | self.sequence
         return new_id
 
-    def _til_next_millis(self, last_timestamp):
-        """
-        等到下一毫秒
-        """
-        timestamp = self._gen_timestamp()
-        while timestamp <= last_timestamp:
-            timestamp = self._gen_timestamp()
-        return timestamp
 
 
 if __name__ == '__main__':

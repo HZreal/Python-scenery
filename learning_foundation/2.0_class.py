@@ -3,7 +3,7 @@
 # 类使用来创建对象-----洗衣机图纸
 # 对象是抽象类创建出来的真实实物-----洗衣机
 
-# class Washer():   #首字母大写，，，类名遵循大驼峰命名
+# class Washer():   # 首字母大写，，，类名遵循大驼峰命名
 #     name = 'haier'
 #     def wash(self):
 #         print('洗衣服')
@@ -94,42 +94,54 @@
 # __dict__
 # 类对象和实例对象都拥有的方法
 # 收集类、实例的属性和方法以及对应的值，返回一个字典
-# class AA():
-#     a = 11      #类属性
-#     def __init__(self):
-#         self.b = 12     #实例属性
+class AA():
+    a = 11  # 类属性
+
+    def __init__(self):
+        self.b = 12  # 实例属性
+
+    def hello(self):
+        pass
+
+    @classmethod
+    def haha(cls):
+        pass
+
+    @staticmethod
+    def hehe():
+        pass
+
+
+aa = AA()
+print(AA.__dict__)  # 返回该类的类属性、类方法、实例方法以及对应值
+print(aa.__dict__)  # 仅返回该对象的实例属性以及对应值
+
+# class SSS():
+#     def abc(self):
+#         print('aaa111')
 #
-# aa = AA()
-# print(AA.__dict__)      # 返回该类的各个属性和方法以及对应值
-# print(aa.__dict__)      # # 返回该对象的各个属性和方法以及对应值
-
-
-class SSS():
-    def abc(self):
-        print('aaa111')
-
-sss = SSS()
+# sss = SSS()
 # sss.aaa()         # 实例对象调用
 # getattr()方法获取类里面的实例方法名getattr(object, attr_name, default)
-bbb = getattr(sss, 'abc')
-bbb()
+# bbb = getattr(sss, 'abc')
+# bbb()
 
 
 # 初始化方法，初始化未传则去类里找
-class Spider:
-    def __init__(self, name=None, **kwargs):
-        if name is not None:
-            self.name = name
-        elif not getattr(self, 'name', None):
-            raise ValueError(f"{type(self).__name__} must have a name")
-        self.__dict__.update(kwargs)
-        if not hasattr(self, 'start_urls'):
-            self.start_urls = []
-
-class mySpider(Spider):
-    name = 'hello'
-    allowed_domains = ['itcast.cn']
-    start_url = ['https://www.baidu.cn/']
-
-    def parse(self):
-        pass
+# class Spider:
+#     def __init__(self, name=None, **kwargs):
+#         if name is not None:
+#             self.name = name
+#         elif not getattr(self, 'name', None):
+#             raise ValueError(f"{type(self).__name__} must have a name")
+#         self.__dict__.update(kwargs)
+#         if not hasattr(self, 'start_urls'):
+#             self.start_urls = []
+#
+# class mySpider(Spider):
+#     name = 'hello'
+#     allowed_domains = ['itcast.cn']
+#     start_url = ['https://www.baidu.cn/']
+#
+#     def parse(self):
+#         pass

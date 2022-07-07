@@ -6,7 +6,7 @@
 
 # 异常类型
 # print(num)            # NameError
-# print(1/0)            #ZeroDivisionError
+# print(1/0)            # ZeroDivisionError
 
 # 捕获指定异常类型
 # try:
@@ -23,21 +23,21 @@
 # 捕获多个指定异常
 # try:
 #     print(1/0)
-# except (NameError,ZeroDivisionError,NotADirectoryError):    #捕获多个异常，将可能的异常类型名放到except后，以元组的方式书写
+# except (NameError, ZeroDivisionError, NotADirectoryError):    #捕获多个异常，将可能的异常类型名放到except后，以元组的方式书写
 #     print('有错误')
 
 # 捕获异常描述信息
 # try:
 #     print(1/0)
-# except (NameError,ZeroDivisionError,NotADirectoryError) as result:
+# except (NameError, ZeroDivisionError, NotADirectoryError) as result:
 #     print(result)
 
 # 捕获所有异常
 # Exception是所有程序异常类的父类
 # try:
 #     print(1/0)
-# except Exception as result:
-#     print(result)
+# except Exception as e:
+#     print(e)
 
 
 # 异常中的else
@@ -65,16 +65,16 @@
 #         2.读取时要求循环读取，若读取过程检测到用户意外终止程序，则捕获异常并提示用户
 # import time
 # try:
-#     f = open('text.txt','r')        #尝试打开文件
+#     f = open('text.txt','r')        # 尝试打开文件
 #     try:
-#         while True:                 #尝试循环读取文件
+#         while True:                 # 尝试循环读取文件
 #             content = f.readline()
 #             if len(content) == 0:
 #                 break
-#             time.sleep(2)            #等待两秒再执行下一行代码
+#             time.sleep(2)            # 等待两秒再执行下一行代码
 #             print(content)
 #     except:
-#         #在命令提示符中,按下Ctrl+C(终止结束键)
+#         # 在命令提示符中,按下Ctrl+C(终止结束)
 #         print('读取过程被意外终止')
 #     finally:
 #         f.close()
@@ -92,22 +92,22 @@ class ShortInputError(Exception):
         self.input_len = input_len
         self.min_len = min_len
 
-    def __str__(self):          #设置异常描述信息
+    def __str__(self):          # 设置异常描述信息
         return f'你输入的密码长度是{self.input_len},不能少于{self.min_len}个字符'
 
-def main():
+def test():
     try:
         password = input('请输入密码：')
         if len(password) < 3:
-            raise ShortInputError(len(password), 3)          #抛出异常
-    except Exception as result:                              #捕获异常
-        print(result)
+            raise ShortInputError(len(password), 3)          # 抛出异常
+    except Exception as e:                              # 捕获异常
+        print(e)
     else:
         print('密码输入完成')
     finally:
         print('提交！')
 
-main()
+test()
 
 
 

@@ -4,9 +4,9 @@
 
 # 打开文件
 # open(name, mode, buffering)
-# name:目标文件名字符串或者目标文件路径
-# mode:访问模式  省略时默认为r
-# buffering设置缓冲
+# name: 目标文件名字符串或者目标文件路径
+# mode: 访问模式  省略时默认为r
+# buffering: 设置缓冲
 
 # 访问模式mode
 #   r: 只读,不可写，r模式打开文件不存在时会报错
@@ -16,7 +16,6 @@
 #   wb:
 
 # 设置缓冲buffering
-
 # buffering=-1 系统默认缓冲
 # buffering=0或者False      关闭缓冲   只能在二进制模式下设置
 # buffering=1或者True       选择为行缓冲  只能在text模式下可用
@@ -50,12 +49,12 @@
 
 # readline()   -------一次读取一行内容
 # f = open('text.txt', 'r')
-# con = f.readline()
-# print(con)
-# con = f.readline()
-# print(con)
-# con = f.readline()
-# print(con)
+# row1 = f.readline()
+# print(row1)
+# row2 = f.readline()
+# print(row2)
+# con3 = f.readline()
+# print(con3)
 # f.close()
 
 # seek() ------用来移动文件指针
@@ -71,7 +70,7 @@
 # 1.用户接收文件名
 # old_name = input('请输入您要备份的文件名：')
 # print(old_name)
-# 2.规划备份文件名
+# 2.定义备份文件名
 # 2.1 找后缀                # sound.txt.mp3
 # index = old_name.rfind('.')
 # print(index)
@@ -83,41 +82,41 @@
 # new_name = name + '[备份]' + postfix
 # print(new_name)
 # 3.写入数据
-# old_file = open(old_name,'rb')
-# new_file = open(new_name,'wb')
+# old_file = open(old_name, 'rb')
+# new_file = open(new_name, 'wb')
 # 不确定文件大小，避免内存不够读取用，采用循环读取写入，当读取出来的数据没有了则终止循环
 # while True:
 #     content = old_file.read()
 #     if len(content) == 0:
-#         表示读取完
-# break
+#         # 表示读取完
+#         break
 # new_file.write(content)
 # old_file.close()
 # new_file.close()
 
 
+
 # 文件和文件夹的操作      ----- 借助os模块
-# import os
+import os
 
 # 文件
 # os.rename(src, dst)
 # os.rename('text2.txt', 'text222.txt')                     # 重命名
-# os.remove('text222.txt')                                 # 删除
+# os.remove('text222.txt')                                  # 删除
 
 # 文件夹
-# os.mkdir('file1')   # 创建文件夹 参数为文件名
-# os.rmdir('file1')    # 删除文件夹
-# print(os.getcwd())     ---------返回当前文件所在目录路径
+# os.mkdir('file1')                   # 创建文件夹 参数为文件名
+# os.rmdir('file1')                   # 删除文件夹
+# print(os.getcwd())                  # 返回当前文件所在目录路径
 
 # 需求：在 aa文件夹 里面创建 bb文件夹
 # 先切换目录再创建
-# os.chdir('file1')
+# os.chdir('aa')
 # os.mkdir('bb')
 
-# print(os.listdir())       # 返回某文件夹下所有文件的一个列表
-# print(os.listdir('file1'))
+# print(os.listdir())                 # 返回某文件夹下所有文件的一个列表
+# print(os.listdir('mypackage'))
 
-# os.rename('file2','file1')
 
 # 批量重命名
 # 添加字符串
@@ -125,7 +124,7 @@
 # print(file_list)
 # for i in file_list:
 #     new_name = 'Python_' + i
-#     os.rename(i,new_name)
+#     os.rename(i, new_name)
 
 # 删除字符串
 # flag = 2

@@ -6,7 +6,7 @@
 
 def hello(p1, p2):
     """
-    demo function hello
+    this function hello is used for test
     :param p1: params1
     :param p2: params2
     :return: int
