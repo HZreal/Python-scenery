@@ -1,8 +1,15 @@
 import pymysql
 
-if __name__ == '__main__':
 
-    conn = pymysql.connect(host='192.168.94.131', port=3306, user='huangzhen', password='root', database='stu', charset='utf8')
+def run():
+    conn = pymysql.connect(
+        host='192.168.94.131',
+        port=3306,
+        user='huangzhen',
+        password='root',
+        database='stu',
+        charset='utf8'
+    )
 
     cursor = conn.cursor()
     sql = 'insert into mytest(name) values(%s);'
@@ -20,3 +27,7 @@ if __name__ == '__main__':
     finally:
         cursor.close()
         conn.close()
+
+
+if __name__ == '__main__':
+    run()

@@ -3,8 +3,7 @@
 
 import pymysql
 
-if __name__ == '__main__':
-
+def run():
     # 2.创建连接对象
     conn = pymysql.connect(host='192.168.94.131',
                            port=3306,
@@ -33,7 +32,6 @@ if __name__ == '__main__':
     # sql_i = 'insert into teacher(name, s_id, c_id) values(%s, %s, %s);'
     # params = ('li', 2, 3)
 
-
     try:
         # 4.执行SQL语句
         cursor.execute(sql_s, params)
@@ -51,6 +49,10 @@ if __name__ == '__main__':
 
         # 6.关闭连接
         conn.close()
+
+if __name__ == '__main__':
+
+    run()
 
 
 

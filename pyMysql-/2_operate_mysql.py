@@ -3,8 +3,8 @@
 
 import pymysql
 
-if __name__ == '__main__':
 
+def run():
     # 2.创建连接对象
     conn = pymysql.connect(host='192.168.94.131',
                            port=3306,
@@ -34,8 +34,22 @@ if __name__ == '__main__':
         # 6.关闭连接
         conn.close()
 
+# 批量插入
+# INSERT INTO example
+# VALUES
+# (100, 'Name 1', 'Value 1', 'Other 1'),
+# (101, 'Name 2', 'Value 2', 'Other 2'),
+# (102, 'Name 3', 'Value 3', 'Other 3'),
+# (103, 'Name 4', 'Value 4', 'Other 4');
+#  ...
+
+# 使用存储过程
 
 
+
+if __name__ == '__main__':
+
+    run()
 
 
 

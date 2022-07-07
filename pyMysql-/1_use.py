@@ -3,7 +3,7 @@
 # 1.导入包
 import pymysql
 
-def main():
+def run():
     # 2.创建连接对象
     # connect = Connection = Connect  本质上是一个函数，任意一个都可以创建一个连接对象
     # pymysql.connect或者pymysql.Connect或者pymysql.Connection都可
@@ -51,28 +51,33 @@ def main():
 
 # pymysql连接封装
 class OperateMysql():
-    def __init__(self, conn, sql, params):
-        self.conn = conn
-        self.sql = sql
-        self.params = params
+    def __init__(self, config):
+        self.conn = pymysql.connect(**config)
 
-    def operate(self):
-        cursor = self.conn.cursor()
-        cursor.execute(self.sql, self.params)
-        res = cursor.fetchall()
-        cursor.close()
+    def exec(self, sql, params):
+        with self.conn.cursor() as cursor:
+            cursor.execute(sql, params)
+            query_result = cursor.fetchall()
 
-def connectMysql():            # 一次连接
-    config = {'host': '192.168.94.131', 'port': 3306, 'user': 'huangzhen', 'password': 'root', 'database': 'stu', 'charset': 'utf8'}
-    conn = pymysql.connect(**config)
-    sql = ''
-    params = []
-    OperateMysql(conn, sql, params).operate()      # 可大量操作
-    conn.close()
+        return self.parse_query_result(query_result)
 
+    @staticmethod
+    def parse_query_result(query_result):
+        print('对查询结果数据进行解析。。。')
+        res = query_result
+        return res
+
+    def close(self):
+        self.conn.close()
 
 def run1():
-    connectMysql()
+    config = {'host': '192.168.94.131', 'port': 3306, 'user': 'huangzhen', 'password': 'root', 'database': 'stu', 'charset': 'utf8'}
+    conn = OperateMysql(config)
+    sql = 'select * from student where id=%s;'
+    params = ['1']
+    res = conn.exec(sql, params)             # 可大量操作
+    print(res)
+
 
 
 
@@ -91,9 +96,10 @@ class DoMysql():
 
 def run2():
     config = {'host': '192.168.94.131', 'port': 3306, 'user': 'huangzhen', 'password': 'root', 'database': 'stu', 'charset': 'utf8'}
-    sql = ''
+    sql = 'select * from student where id=%s;'
+    params = ['1']
     with DoMysql(config) as cursor:
-        cursor.execute(sql)
+        cursor.execute(sql, params)
         result = cursor.fetchall()
 
 
@@ -107,14 +113,14 @@ class Singleton(object):
             cls._instance.db = conn
         return cls._instance
 
-    def operate_mysql(self, sql, params):
+    def exec(self, sql, params):
         cursor = self.db.cursor()
         cursor.execute(sql, params)
 
 def run3():
     sql = 'select * from student where id = %s;'
     params = [1]
-    Singleton().operate_mysql(sql, params)
+    Singleton().exec(sql, params)
 
 
 
@@ -129,15 +135,19 @@ class KeepLongConnect(object):
         except Exception:
             self.conn = pymysql.connect(host='192.168.94.131', port=3306, user='huangzhen', password='root', database='stu', charset='utf8')
 
+    def exec(self, sql, params):
+        with self.conn.cursor as cursor:
+            cursor.execute(sql, params)
+            ret = cursor.fetchall()
+
 def run4():
     conn = pymysql.connect(host='192.168.94.131', port=3306, user='huangzhen', password='root', database='stu', charset='utf8')
     KeepLongConnect(conn).test_connect()
 
 
 
-
 if __name__ == '__main__':
-    main()
+    run()
     # run1()
     # run2()
     # run3()

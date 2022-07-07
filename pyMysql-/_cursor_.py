@@ -32,7 +32,6 @@ def run():
     res_dict_list = dict_fetchall(cursor)
     print(res_dict_list)
 
-
 def run2():
     # DictCursor() 以字典的形式返回操作结果
     dictcursor = pymysql.cursors.DictCursor(conn)
@@ -41,11 +40,9 @@ def run2():
     res = dictcursor.fetchall()
     print(res)
 
-
 def run3():
     # SSCursor()不缓存游标，主要用于当操作需要返回大量数据的时候
     sscursor = pymysql.cursors.SSCursor(conn)
-
 
 def run4():
     # 不缓存游标，将结果以字典的形式进行返回
@@ -61,3 +58,11 @@ def run5():
 if __name__ == '__main__':
     # run()
     run2()
+    # run5()
+
+
+
+
+
+
+
