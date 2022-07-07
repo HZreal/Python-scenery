@@ -2,17 +2,18 @@
 
 import socket
 import os
-import  threading
-import sys
+import threading
+
 
 
 class HttpWebServer(object):
-    def __init__(self, port):
+
+    def __init__(self):
         tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcp_server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
-        tcp_server_socket.bind(('', port))
+        tcp_server_socket.bind(('', 8000))
         tcp_server_socket.listen(128)
-        # 把tcp服务器套接字作为类HttpWebServer的属性
+        # 把tcp服务器套接字对象tcp_server_socket作为类HttpWebServer的属性
         self.tcp_server_socket = tcp_server_socket
 
     # 处理客服端请求
@@ -82,65 +83,21 @@ class HttpWebServer(object):
     # 启动服务器
     def start(self):
         while True:
-            new_socket, ip_port = self.tcp_server_socket.accept()
+            new_socket, ip_port = self.tcp_server_socket.accept()                # 调用tcp_server_socket对象
             sub_thread = threading.Thread(target=self.handle_client_request, args=(new_socket,))
             sub_thread.setDaemon(True)
             sub_thread.start()
 
 
 def main():
-
-    # 获取终端命令行参数
-    parames = sys.argv
-    # print(parames)
-
-    #若参数不是2个，不执行
-    if len(parames) != 2:
-        print('执行命令的格式为：python xxx.py 9000')
-        return
-
-    #判断第二个参数是否是数字组成的字符串
-    # ''.isdigit()
-    if not parames[1].isdigit():
-        print('执行命令的格式为：python xxx.py 9000')
-        return
-
-    # 代码执行到此，说明数据参数是2个，且第二个参数是数字组成的字符串
-    port = int(parames[1])
-
     # 创建服务器对象
-    web_server = HttpWebServer(port)
+    web_server = HttpWebServer()
     # 启动服务器
     web_server.start()
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
