@@ -4,16 +4,16 @@ import socket
 import threading
 
 # 处理客户端请求
-def handle_client_request(new_client, ip_port):
+def handle_client_request(new_connection, ip_port):
     print('客户端的ip和端口号为：', ip_port)
     # 5.接收数据
     # 循环接收客户端的数据，保持多次交互
     while True:
 
-        recv_data = new_client.recv(1024)
+        recv_data = new_connection.recv(1024)
         print('接收的数据长度是：', len(recv_data))
         if len(recv_data) > 0:
-        # 或者if recv_data:
+            # 或者if recv_data:
             recv_content = recv_data.decode('gbk')
             print('接收到的内容为：', recv_content, '来自ip:', ip_port)
 
@@ -23,14 +23,14 @@ def handle_client_request(new_client, ip_port):
             send_data = send_content.encode('gbk')
 
             # 6.发送数据
-            new_client.send(send_data)
+            new_connection.send(send_data)
         else:
             # 若接收数据长度为0，则退出此次通信过程
             print(f'客户端{ip_port}已下线!')
             break
 
     # 关闭通信套接字，表示此次通信结束
-    new_client.close()
+    new_connection.close()
 
 
 if __name__ == '__main__':
@@ -50,12 +50,12 @@ if __name__ == '__main__':
     # 循环等待接收客户端请求
     while True:
 
-        new_client, ip_port = tcp_server_socket.accept()
+        new_connection, ip_port = tcp_server_socket.accept()
         # 代码执行到此，说明连接建立成功
 
 
         # 当客户端与服务端建立连接成功，就创建子线程专门负责与该客户端通信(打通10086后，平台给你分配一个客服)
-        sub_thread = threading.Thread(target=handle_client_request, args=(new_client, ip_port))
+        sub_thread = threading.Thread(target=handle_client_request, args=(new_connection, ip_port))
         sub_thread.setDaemon(True)
         sub_thread.start()
 

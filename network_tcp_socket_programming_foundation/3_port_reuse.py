@@ -29,13 +29,13 @@ if __name__ == '__main__':
     # result = tcp_server_socket.accept()
     # print(result)
     # 解决上述结果是将返回值(元组)拆包，如下
-    new_client, ip_port = tcp_server_socket.accept()           # new_client套接字才与客户端通信
+    new_connection, ip_port = tcp_server_socket.accept()           # new_connection套接字才与客户端通信
     # 代码执行到此，说明连接建立成功
     print('客户端的ip和端口号为：',ip_port)
 
     # 5.接收数据
-    # 收发消息用拆包后的新套接字new_client
-    recv_data = new_client.recv(1024)
+    # 收发消息用拆包后的新套接字new_connection
+    recv_data = new_connection.recv(1024)
     recv_content = recv_data.decode('gbk')
     print('接收到的内容为：',recv_content)
 
@@ -45,9 +45,9 @@ if __name__ == '__main__':
     send_data = send_content.encode('gbk')
 
     # 6.发送数据
-    new_client.send(send_data)
+    new_connection.send(send_data)
     # 关闭服务通信套接字，表示与客户端终止通信(相当于与10086客服挂断)
-    new_client.close()
+    new_connection.close()
 
     # 7.关闭服务器端套接字，表示以后不再等待接收客户端的连接请求(相当于10086平台停服升级)
     tcp_server_socket.close()
