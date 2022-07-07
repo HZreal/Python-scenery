@@ -8,5 +8,5 @@
 /httpRequests/
 vcs.xml
 __pycache__
-.ideal/
+.idea/
 .DS_store
