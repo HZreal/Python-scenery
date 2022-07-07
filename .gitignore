@@ -9,3 +9,4 @@
 vcs.xml
 __pycache__
 .ideal/
+.DS_store
