@@ -13,7 +13,7 @@ if __name__ == '__main__':
     sub_process2.start()
 
     # 同时用元组，字典传参
-    sub_process3 = multiprocessing.Process(target=show_info, args=('huang',), kwargs={'age': 22})
+    sub_process3 = multiprocessing.Process(target=show_info, args=('huang', ), kwargs={'age': 22})
     # sub_process3 = multiprocessing.Process(target=show_info, kwargs={'age': 22}, args=('huang',))
     sub_process3.start()
 

@@ -35,22 +35,22 @@ num = 0
 #         global num
 #         num += 1
 #     else:
-#         print('task1:',num)
+#         print('task1:', num)
 #
 # def task2():
 #     for i in range(1000000):
 #         global num     #表示声明修改全局变量的内存地址
 #         num += 1
 #     else:
-#         print('task2:',num)
+#         print('task2:', num)
 #
 # if __name__ == '__main__':
 #     first_thread = threading.Thread(target=task1)
-#     # 1. 线程同步：主线程等待子线程(first_thread)执行完,再往下执行
-#     first_thread.join()        # 没有此语句，结果是不确定的
 #     second_thread = threading.Thread(target=task2)
 #
 #     first_thread.start()
+#     # 1. 线程同步：主线程等待子线程(first_thread)执行完,再往下执行
+#     first_thread.join()        # 没有此语句，结果是不确定的
 #     second_thread.start()
 
 # 当没有 first_thread.join()语句实行线程同步时，结果是不确定的！！！
@@ -68,11 +68,9 @@ num = 0
 #       保证同一时刻只能有一个线程去操作全局变量 同步: 就是协同步调，按预定的先后次序进行运行。如:你说完，我再说, 好比现实生活中的对讲机
 #
 #
-#
 #   2. 互斥锁：     lock
 # threading模块中定义了Lock变量，这个变量本质上是一个函数，通过调用这个函数可以获取一把互斥锁。
 lock = threading.Lock()
-
 
 def task1():
     # 上锁
@@ -107,9 +105,13 @@ if __name__ == '__main__':
     second_thread = threading.Thread(target=task2)
 
     first_thread.start()
+    # 此时不需要join同步了
     second_thread.start()
 
 # 互斥锁的作用就是保证同一时刻只能有一个线程去操作共享数据，保证共享数据不会出现错误问题
 # 使用互斥锁的好处确保某段关键代码只能由一个线程从头到尾完整地去执行
 # 使用互斥锁会影响代码的执行效率，多任务改成了单任务执行
 # 互斥锁如果没有使用好容易出现死锁的情况
+
+
+

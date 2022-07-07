@@ -36,7 +36,7 @@ if __name__ == '__main__':
     print('主进程id:', main_process_id, '\t\t主进程对象:', multiprocessing.current_process())
 
     # 创建两个子进程
-    dance_process = multiprocessing.Process(target=dance,name='dance_process')
+    dance_process = multiprocessing.Process(target=dance, name='dance_process')
     print('dance子进程对象:', dance_process)
     sing_process = multiprocessing.Process(target=sing, name='sing_process')
     print('sing子进程对象:', sing_process)
