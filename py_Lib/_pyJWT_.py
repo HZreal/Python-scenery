@@ -31,7 +31,7 @@ def basic_use():
 
 
 # JWT机制自己简单实现，生成JWS
-def simple_achieve_token():
+def genertate_JWS_token():
     import base64
     import hmac
 
@@ -64,7 +64,7 @@ def simple_achieve_token():
     print('third segment signature ---->  ', third_segment)
 
     # 完整jwt token
-    print('custom token ---->  ', first_segment + '.' + second_segment + '.' + third_segment)
+    print('JWT token ---->  ', first_segment + '.' + second_segment + '.' + third_segment)
 
 
 
@@ -116,7 +116,7 @@ def useJWTEncodeDecodeHandler():
 
 if __name__ == '__main__':
     # basic_use()
-    simple_achieve_token()
+    genertate_JWS_token()
     # useJWTEncodeDecodeHandler()
 
 

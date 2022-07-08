@@ -102,8 +102,8 @@ def task3(params, params1, params2):
     print('task3的参数是：%s, %s, %s' % (params, params1, params2))
 
 
-if __name__ == '__main__':
 
+def run():
     # 动态添加任务(此方式返回job实例，后续可动态操作)
     # 触发器date：作业任务只会执行一次。它表示特定的时间点触发。参数run_date(类型date、datetime 或 str)
     schedule.add_job(task1, 'date', run_date=datetime.date(2021, 11, 24), jobstore='default', id='date_task1')
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     job1 = schedule.get_job(job_id='date_task1', jobstore='default')  # 根据id返回指定job实例
     job2 = schedule.get_job(job_id='interval_task1', jobstore='custom')  # 根据id返回指定job实例
     default_job_list = schedule.get_jobs(jobstore='default')  # 返回某个jobstore空间中所有的job实例列表
-    custom_job_list = schedule.get_jobs(jobstore='custom')    # 返回某个jobstore空间中所有的job实例列表
+    custom_job_list = schedule.get_jobs(jobstore='custom')  # 返回某个jobstore空间中所有的job实例列表
     print('job1=======>%s' % job1, 'job2=======>%s' % job2, 'default_job_list=======>%s' % default_job_list,
           'custom_job_list=======>%s' % custom_job_list, sep='\n')
 
@@ -163,3 +163,8 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit):
         print('the main thread exit with unknown reason !')
         schedule.shutdown()
+
+
+if __name__ == '__main__':
+    run()
+

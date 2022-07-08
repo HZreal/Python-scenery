@@ -7,6 +7,8 @@ from zipfile import Path
 
 # class ZipFile(file, mode="r", compression=ZIP_STORED, allowZip64=True, compresslevel=None)
 
+
+
 test_file = '../test_dir/filezip_test.zip'
 z1 = ZipFile(test_file)
 z2 = ZipFile('../test_dir/temp.zip', mode='r')
@@ -66,7 +68,7 @@ print('namelist-------------', namelist)
 #         print(content)
 
 
-# 处理zip包中的隐藏文件 __MACOSX/ -------mac生成的元数据管理文件
+# 处理zip包中的隐藏文件 __MACOSX/ -------macOS生成的元数据管理文件
 def check_archive_for_bad_filename(file):
     """检查zip文件是否含有非实用文件"""
     zip_file = ZipFile(file, 'r')

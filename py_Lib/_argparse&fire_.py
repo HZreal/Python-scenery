@@ -12,6 +12,15 @@ parser.add_argument('num1', type=int, help='the first integer ')
 parser.add_argument('num2', type=int, help='the second integer')
 
 
+def use_argparse():
+
+    args = parser.parse_args()
+    max_num = get_max(args.num1, args.num2)
+    print(max_num)
+
+    # 终端调用脚本  python3 _argparse\&Fire_.py 19 22
+
+
 # fire库
 # 函数支持
 # 类支持
@@ -24,26 +33,22 @@ class Calculator():
         return num_2
 
 
-
-if __name__ == '__main__':
-    # args = parser.parse_args()
-    # max_num = get_max(args.num1, args.num2)
-    # print(max_num)
-    # 终端调用脚本  python3 _argparse\&Fire_.py 19 22
-
-
-
-
+def use_fire():
     # 函数
     # fire.Fire(get_max)
     # 终端调用脚本  python3 _argparse&Fire_.py 12 22
     # 终端调用脚本  python3 _argparse&Fire_.py -num1 12 -num2 22
 
-
     # 类
     fire.Fire(Calculator)
     # 终端调用脚本  python3 _argparse&Fire_.py get_double 3
     # 终端调用脚本  python3 _argparse&Fire_.py get_num 3
+
+
+if __name__ == '__main__':
+    # use_argparse()
+    use_fire()
+
 
 
 

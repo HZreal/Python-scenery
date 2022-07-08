@@ -6,6 +6,11 @@ from Crypto.Util.Padding import pad, unpad
 # 注意加解密时不能用同一个对象，需要重新new一个
 
 
+# ps:
+# 以表单上传文件时整个body的加解密
+# 在中间件ARC4EncryptMiddleware中模拟
+
+
 class ARC4Encrypt:
     # 注意加解密时不能用同一个对象，需要重新new一个
     key = 'solid'
@@ -41,6 +46,51 @@ class ARC4Encrypt:
     def arc4_file_decrypt(self, content: bytes) -> bytes:
         # 解密文件
         return self.arc4.decrypt(base64.b16decode(content))
+
+def string_encrypt_with_ARC4():
+    """
+    ARC4对字符串加解密
+    :return:
+    """
+
+    # 数据
+    data = {
+        "common": {
+            "device_id": "8a189b6b-3d37-41e5-92fe-84e5866fa930",
+        }
+    }
+    data = json.dumps(data)
+    # 对字符串进行加密
+    en_data = ARC4Encrypt().arc4_encrypt(data.encode()).decode()
+    print('en_data------->  ', en_data)  # str      en_data = 'F3A66F74004DC3AF08927B7FED67FB7D6022A08E37CED62CD9A7131214F28315F8F6F57D75B6EDCEF71FC6214307A7A939B63892B2156B0D6FED2A18A6E495D27F'
+
+    # 数据解密
+    de_data = ARC4Encrypt().arc4_decrypt(en_data).decode()
+    print('de_data------->  ', de_data)
+
+def file_encrypt_with_ARC4():
+
+    # 打开二进制文件
+    with open('for_ARC4_encrypt.png', 'rb') as f:
+        content = f.read()
+        # print(content)       # bytes
+
+    # 文件二进制内容加密
+    en_str = ARC4Encrypt().arc4_file_encrypt(content=content)
+    print('文件内容的加密结果------->  ', en_str)
+
+    # 加密数据写入一个txt文件
+    with open('_encrypt_data.txt', 'wb') as f:
+        f.write(en_str.encode())
+
+    # 文件解密
+    de_content = ARC4Encrypt().arc4_file_decrypt(en_str.encode())
+    print('compare ------>  ', de_content == content)   # True
+
+def run_ARC4():
+    # string_encrypt_with_ARC4()
+
+    file_encrypt_with_ARC4()
 
 
 class AESEncrypt:
@@ -101,55 +151,6 @@ class AESEncrypt:
         return de_bytes
 
 
-def string_encrypt_with_ARC4():
-    """
-    ARC4对字符串加解密
-    :return:
-    """
-
-    # 数据
-    data = {
-        "common": {
-            "device_id": "8a189b6b-3d37-41e5-92fe-84e5866fa930",
-        }
-    }
-    data = json.dumps(data)
-    # 对字符串进行加密
-    en_data = ARC4Encrypt().arc4_encrypt(data.encode()).decode()
-    print('en_data------->  ', en_data)  # str      en_data = 'F3A66F74004DC3AF08927B7FED67FB7D6022A08E37CED62CD9A7131214F28315F8F6F57D75B6EDCEF71FC6214307A7A939B63892B2156B0D6FED2A18A6E495D27F'
-
-    # 数据解密
-    de_data = ARC4Encrypt().arc4_decrypt(en_data).decode()
-    print('de_data------->  ', de_data)
-
-def file_encrypt_with_ARC4():
-
-    # 打开二进制文件
-    with open('for_ARC4_encrypt.png', 'rb') as f:
-        content = f.read()
-        # print(content)       # bytes
-
-    # 文件二进制内容加密
-    en_str = ARC4Encrypt().arc4_file_encrypt(content=content)
-    print('文件内容的加密结果------->  ', en_str)
-
-    # 加密数据写入一个txt文件
-    with open('_encrypt_data.txt', 'wb') as f:
-        f.write(en_str.encode())
-
-    # 文件解密
-    de_content = ARC4Encrypt().arc4_file_decrypt(en_str.encode())
-    print('compare ------>  ', de_content == content)   # True
-
-def run_ARC4():
-    # string_encrypt_with_ARC4()
-
-    file_encrypt_with_ARC4()
-
-# 以表单上传文件时整个body的加解密
-# 在中间件ARC4EncryptMiddleware中模拟
-
-
 def use_ECB_Mode():
     # ECB mode
 
@@ -166,7 +167,6 @@ def use_ECB_Mode():
     de_text_2 = AESEncrypt(mode='ECB').aes_decrypt_bytes(en_text_2.encode())
     print(de_text_1, de_text_2, sep='\n')
     print('解密结果一样？？？', de_text_1 == de_text_2)
-
 
 def use_CBC_Mode():
     # CBC mode
@@ -201,7 +201,6 @@ def  use_GCM_Mode():
     de_text_2 = AESEncrypt(mode='GCM').aes_decrypt_bytes(en_text_1.encode())
     print(de_text_1, de_text_2, sep='\n')
     print('解密结果一样？？？', de_text_1 == de_text_2)
-
 
 def run_AES():
     # use_ECB_Mode()

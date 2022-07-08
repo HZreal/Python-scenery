@@ -24,7 +24,7 @@ def basic_info():
 def kv_demo():
 
     # Writing a secret
-    # http: // 127.0 .0 .1: 8200 / v1 / kv / data / secret / fee
+    # http://127.0.0.1:8200/v1/kv/data/secret/fee
     create_response = client.secrets.kv.v2.create_or_update_secret(
         path='foo',
         mount_point='kv',        # k-v engine 的path name, 默认secret

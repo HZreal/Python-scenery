@@ -9,24 +9,16 @@ import inspect
 
 # 一、type and members
 # 1. inspect.getmembers(object[, predicate])
-"""Return all members of an object as (name, value) pairs sorted by name.
-    Optionally, only return members that satisfy a given predicate."""
-
-
-# 返回值为object的所有成员，为一个元组列表，列表元素是元组（name, value）
-
+# 返回值为对象的所有成员，为一个元组列表，列表元素是元组（name, value）
 
 class Obj:
     a = 1
-    b = 'aaaa'
 
     def func(self):
-        a = inspect.getmembers(self)
-        print(a)
-
+        pass
 
 obj = Obj()
-obj.func()
+print(inspect.getmembers(obj))
 
 # 第二个参数通常可以根据需要调用如下16个方法；
 # inspect.ismodule(object)                    # 是否为模块

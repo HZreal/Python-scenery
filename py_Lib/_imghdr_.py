@@ -14,6 +14,7 @@ file_path = '/Users/hz/Desktop/WeChat323b195bcc71489a188da4a087620c69.png'
 file_type1 = imghdr.what(file_path)
 print(file_type1)         # png
 
+
 with open(file_path, 'rb') as f:
     content = f.read()
     file_type2 = imghdr.what(None, content)
