@@ -1,131 +1,121 @@
-import functools
-
 # python内置高阶函数
+
+# filter
+# functools.reduce
+
+import functools
 from functools import reduce, wraps, partial, update_wrapper
 
 # filter(function, iterable)
-# 用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表,第一个为函数，第二个为序列
-filter(lambda x: x % 3 == 0, [1, 2, 3, 4, 5, 6])  # [3, 6]
+# 用于过滤序列，过滤掉不符合条件的元素，返回一个filter可迭代对象，保存符合条件的元素。如果要转换成列表，可用list()；也可直接遍历迭代器取值
+# 第一个参数为过滤函数，第二个为待过滤序列
+# filter_obj = filter(lambda x: x % 3 == 0, [1, 2, 3, 4, 5, 6])
+# for i in filter_obj:
+#     print(i)
+# print(list(filter_obj))        # [3, 6]
+
+# 去除空值
+# list_1 = ['', 123, '123', [], {'a': 'b'}, (), ['a', 3], set()]
+# print(list(filter(None, list_1)))
+# print('-------------------------------------------------------')
 
 
-# sorted(iterable, cmp, key, reverse)
-# 函数对所有可迭代的对象进行排序操作
-# 参数：cmp--比较函数  key--可迭代类型中某个属性，对给定元素的每一项进行排序   reverse--排序规则，reverse=True降序，reverse=False升序（默认）
-data_list = [12, 23, 11, 14, 51, 32, 49]
-ss = sorted(data_list, key=lambda x: x / 10 + x % 10, reverse=True)       # 十位数与个位数之和的降序排列
-print('ss -----', ss)
-# list.sort( key=None, reverse=False)用于对原列表进行排序，如果指定参数，则使用比较函数指定的比较函数
-# 参数：key--主要是用来进行比较的元素  reverse--排序规则
-persons = [['Alice', 26, 'F'], ['Trudy', 25, 'M'], ['Bob', 25, 'M'], ['Alexa', 22, 'F']]
-persons.sort(key=lambda x : x[1])
-print(persons)
 
-def compare_1(person_a, person_b):
-    if person_a[2] == person_b[2]:  # if their gender become same
-        return person_a[1] - person_b[1]  # return True if person_a is younger
-    else:  # if their gender not matched
-        if person_b[2] == 'F':  # give person_b first priority if she is female
-            return 1
-        else:  # otherwise give person_a first priority
-            return -1
-persons.sort(key=functools.cmp_to_key(compare_1))
+# reduce(func, iterable)
+# 会对iterable的元素进行累积处理，先对iterable中的第1、2个元素进行func操作，得到的结果再与第三个数据进行func操作，依次执行到iterable的最后一个元素
+# 每次func计算的结果继续和iterable的下一个元素做累积计算
+# 求列表元素之和
+# print(reduce(lambda x, y: x + y, [1, 2, 3, 4, 5, 6, 7, 8, 9]))       # 45
+# 求阶乘
+# print(reduce(lambda x, y: x * y, [i+1 for i in range(6)]))
 
-def compare_2(a1, a2):
-    return (a1 / 10 + a1 % 10) - (a2 / 10 + a2 % 10)
 
-    # if (a1 / 10 + a1 % 10) - (a2 / 10 + a2 % 10) > 0:
-    #     return 1
-    # else:
-    #     return -1
-# data_list.sort(key=functools.cmp_to_key(compare_2), reverse=True)
-data_list.sort(key=functools.cmp_to_key(lambda x, y: (x / 10 + x % 10) - (y / 10 + y % 10)), reverse=True)
-print('data_list -----', data_list)
 
+# map(function, iterable)
+# 会根据func对指定iterable做映射，即iterable中的每一个元素调用func函数，返回一个迭代器，保存每次func函数映射的结果
+# map_obj = map(lambda x: x ** 2, range(5))
+# print(map_obj, list(map_obj))
+# print('-------------------------------------------------------')
+
+
+
+# sorted(iterable, key, reverse)
+# 对可迭代对象进行排序
+# 参数：
+# key -- 排序的规则函数，带一个参数
+# reverse -- 排序顺序，reverse=True降序，reverse=False升序（默认）
+# 按可迭代对象元素的第一个属性排序
+# print(sorted([['helen', 22], ['alin', 21], ['faker', 23]], key=lambda x: x[0]))
 # 字典按值排列
-score_map = {'language': 88, 'math': 89, 'english': 78}
-sorted_score = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
-print('=========字典按值排列==========', sorted_score)
+# score_map = {'language': 88, 'math': 89, 'english': 78}
+# sorted_score = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
+# print('=========字典按值排列==========', sorted_score)
+# 按元素十位数与个位数之和排序
+# print(sorted([12, 23, 11, 14, 51, 32, 49], key=lambda x: x / 10 + x % 10, reverse=True))
+# 按元素绝对值大小排序
+# print(sorted([4, 3, -1, -2, -5, ], key=abs))
+# 按元素小写反向排序
+# print(sorted(['bcd', 'about', 'diff', 'create'],key=str.lower,reverse=True))
+
+
+# list.sort(key=None, reverse=False)
+# 用于对列表进行排序，如果指定参数，则使用比较函数指定的比较函数
+# 参数：
+# key -- 用来比较的规则函数
+# reverse -- 排序顺序
+# persons = [['Alice', 26, 'F'], ['Trudy', 25, 'M'], ['Bob', 25, 'M'], ['Helen', 22, 'F']]
+# 按可迭代对象元素的第一个属性排序
+# persons.sort(key=lambda x : x[0])
+# print(persons)
+
+# 按性别排序，女性优先，性别相同时按年龄从小到大排序
+# def compare_1(person_a, person_b):
+#     if person_a[2] == person_b[2]:  # if their gender become same
+#         return person_a[1] - person_b[1]  # return True if person_a is younger
+#     else:  # if their gender not matched
+#         if person_b[2] == 'F':  # give person_b first priority if she is female
+#             return 1
+#         else:  # otherwise give person_a first priority
+#             return -1
+# persons.sort(key=functools.cmp_to_key(compare_1))
+# print(persons)
+
+# 按十位数与个位数之和排序
+# def compare_2(a1, a2):
+#     return (a1 / 10 + a1 % 10) - (a2 / 10 + a2 % 10)
+# data_list = [12, 23, 11, 14, 51, 32, 49]
+# data_list.sort(key=functools.cmp_to_key(compare_2), reverse=True)
+# print('data_list -----', data_list)
 
 
 # sort 与 sorted 区别：
 # sort是应用在list上的方法，sorted可以对所有可迭代的对象进行排序操作。
 # list的sort方法在原内存空间上进行操作，对列表本身进行修改，不返回副本，而内建函数sorted方法不是在原内存空间上进行的操作，而是返回一个新的list
-ali = [('b', 3), ('a', 2), ('d', 4), ('c', 1)]
-sorted(ali, key=lambda x: x[0])  # 表示根据可迭代对象的第一个元素进行排序，即按照字母排序 [('a',2),('b',3),('c',1),('d',4)]
+print('-------------------------------------------------------')
 
 
 
-# reduce(function, iterable)
-# 会对参数序列中元素进行累积，先对集合中的第1、2个元素进行func操作，得到的结果再与第三个数据进行func操作，依次执行到最可迭代对象最后一个元素后
-reduce_res = reduce(lambda x, y: '{},{}'.format(x, y), [1, 2, 3, 4, 5, 6, 7, 8, 9])  # 1,2,3,4,5,6,7,8,9
-print(reduce_res)
-
-# map(func, list)  --------------将传入的函数变量func作用到list变量的每个元素中,并将结果组成新的列表py2/迭代器py3
-list1 = [1, 2, 3, 4, 5]
-# map(function, iterable)
-# 会根据提供的函数对指定序列做映射，即以序列中的每一个元素调用function函数，返回包含每次function函数返回值的新列表
-map(lambda x: x ** 2, range(5))  # [0, 1, 4, 9, 16]
-
-
-def func(x):
-    return x ** 2
-
-
-result = map(func, list1)
-print(result)
-print(list(result))  # 需要转换数据类型才能打印输出
-
-
-
-
-# reduce(func, list)   -----------其中func必须有两个参数，每次func计算的结果继续和序列的下一个元素做累积计算
-import functools
-
-list2 = [1, 2, 3, 4, 5]
-
-
-def func(a, b):
-    return a + b
-
-
-result = functools.reduce(func, list2)
-print(result)
-
-# filter(func, list)    --------用于过滤序列中不符合该函数条件的元素，返回一个filter对象，如果要转换成列表，用list()
-list3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-
-def func(x):
-    return x % 2 == 0
-
-
-result = filter(func, list3)
-print(list(result))
-list3 = ['', 123, '123', [], {'a': 'b'}, (), ['a', 3]]
-for i in filter(None, list3):
-    print(i)
 
 # zip
 # 参数为多个可迭代对象
 # 用于将这多个对象中下标索引对应的元素打包成一个元组，返回一个列表(py2.x)或者一个zip对象(py3.x)
 # python2.x返回由这些元组组成的列表。Python3.x中为了减少内存，返回的是一个zip对象。如需展示列表，需手动 list() 转换
-# 如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表
-seq = ['one', 'two', 'three']
-seq1 = [1, 2, 3]
-seq2 = [4, 5, 6, 7]
-seq3 = [8, 9, 10, 11, 12]
-zip_obj = zip(seq, seq1)
-print(zip(seq))  # 不报错，
-print(zip_obj)  # <zip object at 0x10487e700>可以理解成(('one', 1), ('two', 2), ('three', 3))    是个生成器(使用过后，再次使用就是空对象)
-print('压缩两个并转成list-------', list(zip_obj))  # [('one', 1), ('two', 2), ('three', 3)]
-print('压缩两个并转成dict', dict(zip_obj))  # {'one': 1, 'two': 2, 'three': 3}    不注释上一行，则此处为空字典
-print('压缩多个并转成list-------',
-      list(zip(seq, seq1, seq2, seq3)))  # 元素个数与最短的列表一致   [('one', 1, 4, 8), ('two', 2, 5, 9), ('three', 3, 6, 10)]
+# 如果各个迭代器的元素个数不一致，则返回列表的长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表
+# seq = ['one', 'two', 'three']
+# seq1 = [1, 2, 3]
+# seq2 = [4, 5, 6, 7]
+# seq3 = [8, 9, 10, 11, 12]
+# zip_obj = zip(seq, seq1)
+# print(zip(seq))  # 不报错，
+# print(zip_obj)  # <zip object at 0x10487e700>可以理解成(('one', 1), ('two', 2), ('three', 3))    是个生成器(使用过后，再次使用就是空对象)
+# print('压缩两个并转成list-------', list(zip_obj))  # [('one', 1), ('two', 2), ('three', 3)]
+# print('压缩两个并转成dict', dict(zip_obj))  # {'one': 1, 'two': 2, 'three': 3}    不注释上一行，则此处为空字典
+# print('压缩多个并转成list-------', list(zip(seq, seq1, seq2, seq3)))  # 元素个数与最短的列表一致   [('one', 1, 4, 8), ('two', 2, 5, 9), ('three', 3, 6, 10)]
 # print('压缩多个并转成dict-------', dict(zip(seq, seq1, seq2, seq3)))       # 报错
 
-a, b = zip(*zip(seq, seq1))
+# a, b = zip(*zip(seq, seq1))
 # c, d = zip(*zip_obj)                                                    # 会报错
-print('解压------', list(a), list(b))
+# print('解压------', list(a), list(b))
 print('-------------------------------------------------------')
 
 
@@ -136,7 +126,7 @@ print('-------------------------------------------------------')
 # 通俗点说：就是把原函数的部分参数固定了初始值，新的调用只需要传递其它参数
 
 def add1(a, b, c):  # add1函数原本接收参数a、b、c
-    print('add1 -----', a + b + c)
+    print('add1 ----->  ', a + b + c)
 # 经过partial包装之后，a参数的值被固定为了1，b参数的值被固定为了2，返回partial对象，此对象的调用只需要接收剩余的参数c即可。
 add11_partial = partial(add1, 1, 2)          # __new__方法，将func和参数元祖拆包后保存在一个可调用对象中并返回这个对象
 add11_partial(3)                             # 调用这个对象时执行__call__方法，将对象中已保存的参数a、b与当前传入的参数c合并，传给原函数add1执行
