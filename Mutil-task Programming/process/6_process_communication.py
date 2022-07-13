@@ -35,8 +35,7 @@
 # 对于共享内存，数据操作最快，因为是直接在内存层面操作，省去中间的拷贝工作。但是共享内存只能在单机上运行，且只能操作基础数据格式，无法直接共享复杂对象。
 # 管道和队列传递数据没有共享内存快，且每次传递的数据大小受限。但是使用队列可以在多个进程间传递，可以在不同主机上的进程间共享，以实现分布式。
 # 匿名管道则只能在父子进程间共享，而命名管道可在同一台计算机的不同进程之间或在跨越一个网络的不同计算机的进程间共享。
-
-
+import collections
 from multiprocessing import Process, Pipe, Queue, set_start_method, Manager, Lock, Semaphore, Event
 import time, random, os
 
@@ -236,4 +235,3 @@ if __name__ == '__main__':
     # use_memory_share()
     # use_semaphore()
     # use_signal_or_event()
-

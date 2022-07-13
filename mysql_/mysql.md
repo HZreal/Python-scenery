@@ -6,7 +6,7 @@
 
 ## 二、配置
 
-
+/etc/mysql/mysql.conf.d//mysqld.cnf 
 
 ## 三、Mysql Program
 
