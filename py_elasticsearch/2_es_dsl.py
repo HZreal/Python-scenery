@@ -31,3 +31,13 @@ response = s.execute()
 # 结果总数
 s.count()
 # response.hits.total
+
+
+
+
+
+
+
+
+
+

@@ -8,3 +8,14 @@ import re
 # print(result)
 
 
+
+# re.M
+# re.I
+# re.A
+# re.T
+re.match(r'', '', re.M)
+
+
+
+
+

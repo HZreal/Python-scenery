@@ -2,7 +2,8 @@
 
 # import zipfile
 import os.path
-from zipfile import ZipFile
+from datetime import datetime
+from zipfile import ZipFile, ZIP_DEFLATED
 from zipfile import Path
 
 # class ZipFile(file, mode="r", compression=ZIP_STORED, allowZip64=True, compresslevel=None)
@@ -161,6 +162,36 @@ z1.close()
 z2.close()
 
 
+
+
+
+def export_csv():
+
+    # 导出csv
+
+    to_dir = '/Users/hz/Desktop/hz'
+    store_filename = '2022-07-17.zip'
+    dir_path = '/Users/hz/Desktop/hz/walletMerge/'
+
+
+    zipfile_path = os.path.join(to_dir, store_filename)
+    with ZipFile(zipfile_path, "w", ZIP_DEFLATED) as z:
+        for path, dirnames, filenames in os.walk(dir_path):
+            fpath = path.replace(dir_path, '')
+            for filename in filenames:
+                z.write(os.path.join(path, filename), os.path.join(fpath, filename))
+
+def extract():
+    file_dir = ''
+    with ZipFile(file_dir) as f:
+        for file in f.namelist():
+            f.extract(file, 'extract')
+
+def getFiles(path, suffix):
+    return [os.path.join(root, file) for root, dirs, files in os.walk(path) for file in files if file.endswith(suffix)]
+
+
+
 # --------------------------------------------------------------------------------
 # zipfile 模块提供了简单的命令行接口用于与 ZIP 归档的交互
 # 如果你想要创建一个新的 ZIP 归档，请在 -c 选项后指定其名称然后列出应当被包含的文件名:
@@ -194,3 +225,4 @@ if __name__ == '__main__':
     print('main--------------')
     # run()
     # list_all_file(path1)
+    # export_csv()

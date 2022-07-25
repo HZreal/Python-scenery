@@ -47,8 +47,8 @@ from functools import reduce, wraps, partial, update_wrapper
 # 按可迭代对象元素的第一个属性排序
 # print(sorted([['helen', 22], ['alin', 21], ['faker', 23]], key=lambda x: x[0]))
 # 字典按值排列
-# score_map = {'language': 88, 'math': 89, 'english': 78}
-# sorted_score = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
+score_map = {'language': 88, 'math': 89, 'english': 78}
+sorted_score = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
 # print('=========字典按值排列==========', sorted_score)
 # 按元素十位数与个位数之和排序
 # print(sorted([12, 23, 11, 14, 51, 32, 49], key=lambda x: x / 10 + x % 10, reverse=True))
@@ -56,6 +56,9 @@ from functools import reduce, wraps, partial, update_wrapper
 # print(sorted([4, 3, -1, -2, -5, ], key=abs))
 # 按元素小写反向排序
 # print(sorted(['bcd', 'about', 'diff', 'create'],key=str.lower,reverse=True))
+
+# 使用sorted()进行排序会生成新的序列，生成的新序列和原序列id值必然不同。对于可变对象，sorted()进行排序时原序列也发生变化
+
 
 
 # list.sort(key=None, reverse=False)
@@ -179,8 +182,8 @@ add2(1, 2)
 
 '''
 补充: 
-def fun1(a, b, *, c):            “*” 代表“*”之后的参数，只能用关键字参数的方式给出
 def fun1(a, b, /, c):            “/”之前的变量，只能通过位置方式传递参数，不能通过关键字形式传递参数
+def fun1(a, b, *, c):            “*” 代表“*”之后的参数，只能用关键字参数的方式给出
 '''
 
 print('-------------------------------------------------------')

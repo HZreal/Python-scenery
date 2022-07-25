@@ -38,7 +38,15 @@ print(DemoInstance.__hash__())
 
 
 
+class A(object):
+    pass
 
+class B(A):
+    pass
+
+b = B()
+
+print(issubclass(B, A))
 
 
 

@@ -65,16 +65,38 @@ def random_from_selector(selector: list):
     return random.choice(selector)
 
 
+import random
+def foo(n):
+    random.seed()
+    c1 = 0
+    c2 = 0
+    for i in range(n):
+        x = random.random()
+        y = random.random()
+        r1 = x * x + y * y
+        r2 = (1 - x) * (1 - x) + (1 - y) * (1 - y)
+        if r1 <= 1 and r2 <= 1:
+            c1 += 1
+        else:
+            c2 += 1
+    return c1 / c2
+
+
+
 if __name__ == '__main__':
     # 生成32位随机串
     # random_str = get_random_code(32)
     # print(random_str)
 
     # 生成count个，bit位随机码
-    random_num_iterator = generate_count_number(count=3, bit=6)
-    for random_num in random_num_iterator:
-        print(random_num)
+    # random_num_iterator = generate_count_number(count=3, bit=6)
+    # for random_num in random_num_iterator:
+    #     print(random_num)
 
     # 从列表中随机弹出一个元素
     # pop_num = random_from_selector([12, 23, 43, 54, 35])
     # print(pop_num)
+
+
+
+    foo(10)

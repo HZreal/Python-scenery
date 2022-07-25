@@ -40,7 +40,7 @@ import os
 
 
 
-path = Path(__file__)              # 当前文件路径
+# path = Path(__file__)              # 当前文件路径
 # print(path)
 
 # print(os.path.abspath(__file__))                  # 返回绝对路径
@@ -49,14 +49,24 @@ path = Path(__file__)              # 当前文件路径
 # print(os.path.dirname(path))	                    # 返回文件父目录
 # print(os.path.exists(path))	                    # 路径存在则返回True,路径不存在返回False
 
-print(os.path.getatime(path))	                        # 返回最近访问时间（浮点型秒数）
-print(os.path.getmtime(path))	                        # 返回最近文件修改时间
-print(os.path.getctime(path))	                        # 返回文件创建时间
+# print(os.path.getatime(path))	                        # 返回最近访问时间（浮点型秒数）
+# print(os.path.getmtime(path))	                        # 返回最近文件修改时间
+# print(os.path.getctime(path))	                        # 返回文件创建时间
+#
+# print(os.path.getsize(path))	                        # 返回文件大小，如果文件不存在就返回错误
+#
+# print(os.path.isfile(path))	                            # 判断路径是否为文件
+# print(os.path.isdir(path))	                            # 判断路径是否为目录
+# print(os.path.isabs(path))	                            # 判断是否为绝对路径
 
-print(os.path.getsize(path))	                        # 返回文件大小，如果文件不存在就返回错误
 
-print(os.path.isfile(path))	                            # 判断路径是否为文件
-print(os.path.isdir(path))	                            # 判断路径是否为目录
-print(os.path.isabs(path))	                            # 判断是否为绝对路径
+
+# os.path
+
+
+
+
+
+
 
 

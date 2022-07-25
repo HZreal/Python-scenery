@@ -22,11 +22,9 @@ for value in fruit_list:
 # !!!!!!出现一个小括号就是一个分组，分组索引是从1开始的，且顺序是从左到右依次排序
 match_obj = re.match('([a-zA-Z0-9_]{4,20})@(163|126|qq)\.com', 'hello@163.com')
 # .  表示匹配任意一个字符， 用\转义变成真正的.字符，否则邮箱那个点改成任意其他字符也能匹配
-print(type(match_obj))
 if match_obj:
     print(match_obj.group())  # 默认是0，取整个匹配结果
-    print('获取匹配到的第一个分组：', match_obj.group(1), '\n获取匹配到的第二个分组：', match_obj.group(2), '\n匹配结果：',
-          match_obj.group(0))  # 获取第2个分组
+    print('获取匹配到的第一个分组：', match_obj.group(1), '\n获取匹配到的第二个分组：', match_obj.group(2), '\n匹配结果：', match_obj.group(0))
     print('span方法 匹配到的字符串的索引位置，返回元祖-----', match_obj.span())
 else:
     print('匹配失败')

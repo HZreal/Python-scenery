@@ -92,9 +92,9 @@ def task1():
 
 
 # 静态添加任务(此方式声明在应用程序运行时不再更改的作业)
-@schedule.scheduled_job('cron', second='*/2', id='cron_task2')
-def task2():
-    print('任务二执行时间-------->', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+# @schedule.scheduled_job('cron', second='*/2', id='cron_task2')
+# def task2():
+#     print('任务二执行时间-------->', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 
 def task3(params, params1, params2):
@@ -106,28 +106,29 @@ def task3(params, params1, params2):
 def run():
     # 动态添加任务(此方式返回job实例，后续可动态操作)
     # 触发器date：作业任务只会执行一次。它表示特定的时间点触发。参数run_date(类型date、datetime 或 str)
-    schedule.add_job(task1, 'date', run_date=datetime.date(2021, 11, 24), jobstore='default', id='date_task1')
+    # schedule.add_job(task1, 'date', run_date=datetime.date(2021, 11, 24), jobstore='default', id='date_task1')
     # job = schedule.add_job(task1, 'date', run_date=datetime.datetime(2021, 11, 24, 11, 38, 59))
     # schedule.add_job(task1, 'date', run_date='2021-12-13 14:09:47')
 
     # 触发器interval：固定时间间隔触发。参数weeks(int)、days(int)、minutes(int)、start_date(datetime或str)、end_date(datetime或str) 等
     # schedule.add_job(task1, 'interval', seconds=2)
-    job_task1 = schedule.add_job(task1, 'interval', seconds=5, start_date='2020-11-22 12:24:47',
-                                 end_date='2021-11-24 16:34:47', id='interval_task1', jobstore='custom')
+    # job_task1 = schedule.add_job(task1, 'interval', seconds=5, start_date='2020-11-22 12:24:47',
+    #                              end_date='2021-11-24 16:34:47', id='interval_task1', jobstore='custom')
 
     # 触发器cron：在特定时间周期性地触发，和Linux crontab格式兼容。它是功能最强大的触发器。参数year(int或str)、hour(int或str)、start_date(datetime或str) 等
-    schedule.add_job(task1, 'cron', day_of_week='1-5', hour='6-18', minute='*', id='cron_task1')
+    schedule.add_job(task1, 'cron', hour='16', minute='13', second='3', id='cron_task1')
+    # schedule.add_job(task1, 'cron', day_of_week='1-5', hour='6-18', minute='*', id='cron_task1')
     # schedule.add_job(task1, 'cron', month='1-3,7-9', day='0, tue', hour='0-3')                # 在每年 1-3、7-9 月份中的每个星期一、二中的 00:00, 01:00, 02:00 和 03:00 执行任务
-    schedule.add_job(task3, 'cron', second='*/3', id='cron_task3', args=('hello',),
-                     kwargs={'params1': 'huang', 'params2': 'zhen'})
+    # schedule.add_job(task3, 'cron', second='*/3', id='cron_task3', args=('hello',),
+    #                  kwargs={'params1': 'huang', 'params2': 'zhen'})
 
     # 获取任务列表(若指定jobstore，则返回指定jobstore下的任务)
-    job1 = schedule.get_job(job_id='date_task1', jobstore='default')  # 根据id返回指定job实例
-    job2 = schedule.get_job(job_id='interval_task1', jobstore='custom')  # 根据id返回指定job实例
-    default_job_list = schedule.get_jobs(jobstore='default')  # 返回某个jobstore空间中所有的job实例列表
-    custom_job_list = schedule.get_jobs(jobstore='custom')  # 返回某个jobstore空间中所有的job实例列表
-    print('job1=======>%s' % job1, 'job2=======>%s' % job2, 'default_job_list=======>%s' % default_job_list,
-          'custom_job_list=======>%s' % custom_job_list, sep='\n')
+    # job1 = schedule.get_job(job_id='date_task1', jobstore='default')  # 根据id返回指定job实例
+    # job2 = schedule.get_job(job_id='interval_task1', jobstore='custom')  # 根据id返回指定job实例
+    # default_job_list = schedule.get_jobs(jobstore='default')  # 返回某个jobstore空间中所有的job实例列表
+    # custom_job_list = schedule.get_jobs(jobstore='custom')  # 返回某个jobstore空间中所有的job实例列表
+    # print('job1=======>%s' % job1, 'job2=======>%s' % job2, 'default_job_list=======>%s' % default_job_list,
+    #       'custom_job_list=======>%s' % custom_job_list, sep='\n')
 
     # 修改、暂停、恢复、移除任务均两种方式：调度器通过id操作job 或者 job实例自我操作
     # 修改任务
@@ -157,9 +158,9 @@ def run():
     try:
         while True:
             # 保持主线程一直运行
-            print(
-                'keep the main thread alive, or the children thread will not run for the destruction by the main exited thread')
+            print('keep the main thread alive, or the children thread will not run for the destruction by the main exited thread')
             time.sleep(2)
+            pass
     except (KeyboardInterrupt, SystemExit):
         print('the main thread exit with unknown reason !')
         schedule.shutdown()

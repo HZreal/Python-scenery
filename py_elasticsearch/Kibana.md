@@ -8,6 +8,8 @@ port 5601
 
 Kibana是一个开源的分析和可视化平台，设计用于和Elasticsearch一起工作。
 
+Kibana是一个基于Node.js的Elasticsearch索引库数据统计工具，可以利用Elasticsearch的聚合功能，生成各种图 表，如柱形图，线状图，饼图等。 而且还提供了操作Elasticsearch索引数据的控制台，并且提供了一定的API提示
+
 你可以使用Kibana来搜索、查看、并和存储在Elasticsearch索引中的数据进行交互。
 
 你可以轻松地执行高级数据分析，并且以各种图标、表格和地图的形式可视化数据。

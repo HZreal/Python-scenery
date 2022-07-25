@@ -171,31 +171,31 @@ else:
 # name = '012345678'
 # print(name[1])
 # print(name[2:5:1])    # 切片，开始位置下标，结束位置下标，步长
-# print(name[2:5:2])    # 24
-# print(name[2:])       # 2345678
-# print(name[:5])       # 01234    不包括5 !!!
-# print(name[::-1])     # 876543210       -1表示倒数选取    !!!
+# print(name[2:5:2])    # '24'
+# print(name[2:])       # '2345678'
+# print(name[:5])       # '01234'    不包括5 !!!
+# print(name[::-1])     # '876543210'       -1表示倒数选取    !!!
 # print(name[-4:-1])    # 倒数第一个数下标为-1,以此类推   !!!
 #
 # print(name[-4:-1:-1])   # 无法选取
-# print(name[-1:-4:-1])   # 可以选取   下标方向必须与步长方向一致才可以选取
+# print(name[-1:-4:-1])   # 可以选取   注意：下标方向必须与步长方向一致才可以选取
 
 
 # 查找
-# mystr = 'today is a nice day, is very well'
+mystr = 'today is a nice day, is very well'
 # print(mystr.find('is'))
-# print(mystr.find('is',2,12))   # 下标2到12之间查找is
+# print(mystr.find('is', 2, 12))   # 下标2到12之间查找is
 # print(mystr.find('ios'))     # 查不出返回-1
 
 # print(mystr.index('is'))
-# print(mystr.index('is',2,12))
-# print(mystr.index('ios',2,12))   #差不出，报错
+# print(mystr.index('is', 2, 12))
+# print(mystr.index('ios', 2, 12))   # 差不出，报错
 
 # find与index用法相同，查找失败时前者返回-1，后者报错
 # rfind() rindex() 是从右边开始查找，用法相同
 
-# print(mystr.count('is',2,30))   # 返回is出现的次数
-# print(mystr.count('ios',2,30))   # 返回0表示没有，不会报错
+# print(mystr.count('is', 2, 30))   # 返回is出现的次数
+# print(mystr.count('ios', 2, 30))   # 返回0表示没有，不会报错
 
 
 # 字符串为不可变数据类型，不可在原内存地址处修改
@@ -206,13 +206,16 @@ else:
 
 # strip移除字符串头尾指定的字符（默认为空格）或字符序列，只能删除开头或是结尾的！
 # 参数为要删除的字符序列，可以为空字符' '    '\n'   '\r'   '\t'    且字符在删除序列内，就删除掉，不论顺序
-# mystr.strip('well')              # 删除字符串中开头和结尾处的'well'
-# mystr.lstrip('well')             # 开头删除
-# mystr.rstrip('well')             # 结尾删除
+# print(mystr.strip('wlel'))              # 删除字符串中开头和结尾处的'well'
+# print(mystr.lstrip('well'))             # 开头删除
+# print(mystr.rstrip('wlle'))             # 结尾删除
+
+# strs = 'abbacabb'
+# print('strip -----   ', strs.strip('ab'))   # !!!注意：参数'ab'是一个字符集，只要是包含了上述集合中的任何一个，都删除。
 
 # 判断字符串是否以某串开始/结尾
 # mystr.startswith('')
-# mystr.endswith('')
+# print(mystr.endswith('wel', 0, -1))
 
 # split分割
 # print(mystr.split('is'))
@@ -224,10 +227,18 @@ else:
 # replace 替换原串的部分串，可指定替换次数
 # print('hello, world'.replace('l', 'f', 1))
 
-# capitalize()   字符串首字母变大写
-# title() 每个单词首字母都变大写
-# lower() 所有大写转小写
-# upper()  所有小写转大写
+# str.upper() # 把所有字符中的小写字母转换成大写字母
+# str.lower() # 把所有字符中的大写字母转换成小写字母
+# str.capitalize() # 把第一个字母转化为大写字母，其余小写， 'abcd12efg' ->  'Abcd12efg'
+# str.title() # 把每个单词的第一个字母转化为大写，其余小写， 'abcd12efg' ->  'Abcd12Efg'
+
+
+
+# a = '123'
+# b = '123'
+# print(a == b)
+# print(a is b)
+
 
 
 # 列表：可变数据类型，允许在原地址空间修改
@@ -239,6 +250,20 @@ demo_list = ['a', 'b']
 # 对list中的元素直接赋值替换，即修改
 # demo_list[1] = 'ccc'
 # print(demo_list)
+
+# 列表切片
+"""
+使用模式: [start:end:step]
+    其中start表示切片开始的位置,默认是0
+    end表示切片截止的位置(不包含),默认是列表长度
+    step表示切片的步长,默认是1
+    当start是0时,可以省略;当end是列表的长度时,可以省略.
+    当step是1时,也可以省略,并且省略步长时可以同时省略最后一个冒号.
+    此外,当step为负数时,表示反向切片,这时start值应该比end值大.
+    注意:切片操作创建了一个新的列表.
+"""
+# list_ = [1, 2, 3, 4, 5, 6]
+# print(list_[22:])         # []
 
 # append(data)   列表尾部添加一个新元素
 # demo_list.append('c')
@@ -267,7 +292,7 @@ demo_list = ['a', 'b']
 # pop(index)    删除指定下标的数据，不指定下标默认最后一个数据，返回的是删除的数据
 # print(demo_list.pop(1))
 
-# remove(data)   直接删除列表中的某指定数据
+# remove(data)   直接删除指定列表中的第一个数据，不存在会报错
 # demo_list.remove('a')
 # print(demo_list)
 
@@ -285,7 +310,7 @@ demo_list = ['a', 'b']
 # print(persons)
 
 # copy()  列表复制
-# demo_list_copy = demo_list.copy()
+# demo_list_copy = demo_list.copy()          # 复制一份，原来的改变不影响复制后的，即两者独立的
 # print(demo_list_copy)
 
 # while遍历
@@ -347,11 +372,11 @@ demo_list = ['a', 'b']
 # 虽然在列表中更改了值，但是列表的地址没有改变，列表在元组中的地址的值没有改变，所以也就意味着元组没有发生变化。我们就可以认为元组是不可变数据类型
 
 # 可以间接的修改元组：通过拷贝现有的元组片段构造一个新的元组的方式解决，实质是新建一个元祖
-# 思想：通过分片的方法让元组拆分成两部分，然后再使用连接操作符（+）合并成一个新元组
+# 思想：通过切片的方法让元组拆分成两部分，然后再使用连接操作符（+）合并成一个新元组
 # temp = ("龙猫", "泰迪", "叮当猫")
 # print(id(temp))
-# new_temp = temp[:2] + ("小猪佩奇",) + temp[2:]           # 实质是新建一个元祖
-# print(new_temp, id(new_temp))                           # ('龙猫', '泰迪', '小猪佩奇', '叮当猫')
+# new_temp = temp[:2] + ("佩奇",) + temp[2:]           # 实质是新建一个元祖
+# print(new_temp, id(new_temp))                           # ('龙猫', '泰迪', '佩奇', '叮当猫')
 
 
 # 字典：可变数据类型
@@ -378,6 +403,10 @@ demo_list = ['a', 'b']
 
 # 清空
 # dict1.clear()           # 返回空字典
+
+# dict.copy()
+# dic = {}
+# dic_copy = dic.copy()       # 复制一份，原来的改变不影响复制后的，即两者独立的
 
 # 查找
 # 按key查找
@@ -413,7 +442,9 @@ for key,value in dict1.items():
 # value_1 = 11
 # value_2 = (11, 2)
 # value_3 = [1, 2, 3]
-# ccc = dict.fromkeys(iterable_, value_1)               # {'a': [1, 2, 3], 'b': [1, 2, 3], 'c': [1, 2, 3]}
+# ccc = dict.fromkeys(iterable_, value_3)               # {'a': [1, 2, 3], 'b': [1, 2, 3], 'c': [1, 2, 3]}
+# print(ccc)
+
 # zip函数将两个迭代器的元素一一对应
 # ccc = dict(zip(iterable_, value_3))                           # {'a': 1, 'b': 2, 'c': 3}
 # print(ccc)
@@ -444,7 +475,9 @@ s5 = {}     # 创建空字典
 # s1.add(100)                     # add添加元素
 # s1.add(100)                   # 集合有自动去重功能，已经有了100则不需添加
 # s1.add([10, 20])              # 报错!!! 此时增加的是序列应该用update
+
 # s1.update([10, 20, 30, 40, 50])
+# s1.update('qwerty')           # 相当于s1.update(['q', 'w', 'e', 'r', 't', 'y'])
 # print(s1)
 
 # s1 = {10, 20, 30, 40, 50}

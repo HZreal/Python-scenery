@@ -2,6 +2,9 @@ import random
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
+# doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+
+
 es = Elasticsearch()  # 默认连接本机
 # es = Elasticsearch(['192.168.200.228:9200'], ignore=400)
 # es = Elasticsearch(
@@ -27,24 +30,23 @@ es = Elasticsearch()  # 默认连接本机
 
 
 # 集群基本信息
-info = es.info()
-print(info)
+# info = es.info()
+# print(info)
 
 
-# Creates or updates a document in an index.
 # es.index(index, body, doc_type=None, id=None, params=None, headers=None)
-doc = {
-    'author': 'huang',
-    'text': 'hello world',
-    'timestamp': datetime.now(),
-}
-# res1 = es.index(index='test', doc_type='doc', id=1, body={'name': 'huang', 'age': 24})
-# res = es.index(index='test-index', id=1, document=doc)
+# doc = {
+#     'author': 'huang',
+#     'text': 'hello world',
+#     'timestamp': datetime.now(),
+# }
+# 在某个index中创建/更新文档
+# res = es.index(index='test', doc_type='_doc', id=1, body={'name': 'huang', 'age': 22})
 # print('res-------', res)
-# print('result-------', res['result'])
-# print(res['_source'])
+# print('操作方式-------', res['result'])
 
 
+# es.indices
 # es.indices.add_block(index, block, params=None, headers=None)
 # es.indices.clone(index, target, body=None, params=None, headers=None)
 # es.indices.create(index, body=None, params=None, headers=None)
@@ -82,6 +84,7 @@ doc = {
 #     print(hit['_source'])
 
 
+# 批量操作
 # 允许在单个请求中执行多个索引/更新/删除操作。
 # es.bulk(body, index=None, doc_type=None, params=None, headers=None)
 
@@ -89,31 +92,28 @@ doc = {
 # 返回匹配查询的文档数。
 # es.count()
 
-
-# 在索引中创建一个新文档。当索引中已存在具有相同 ID 的文档时，返回 409
-# es.create(index, id, body, doc_type=None, params=None, headers=None)
-
-
-# 从索引中删除文档
-# es.delete( index , id , doc_type=None , params=None , headers=None )
-
+# 在索引中创建一个新文档
+# res = es.create('test', 2222, body={'g_name': 'apple', 'num': 3})       # 当索引中文档id已存在时，返回409
+# print(res)
 
 # 文档是否存在于索引中
-# es.exists(index, id, doc_type=None, params=None, headers=None)
+# is_existed = es.exists('index4', 1)
+# print(is_existed)
 
+# 获取一个文档，返回查询结果，文档源数据包含在内
+# query_res = es.get(index="index4", id=1)
+# print('get doc by id in index ---->  ', query_res['_source'])
 
-# 返回一个文档
-# es.get()
-# res = es.get(index="test-index", id=1)
+# 获取查询的文档源数据
+# source_doc = es.get_source('test', 2)
+# print(source_doc)
 
+# 从索引中删除文档
+# res = es.delete('test', 2)
 
-# Returns the source of a document.
-# es.get_source(index, id, doc_type=None, params=None, headers=None)
-
-
-# Allows to get multiple documents in one request
-# es.mget(body, index=None, doc_type=None, params=None, headers=None)
-
+# 一个请求查询多个文档
+mul_doc = es.mget(body={'ids': [1, 2]}, index='index4')
+print(mul_doc)
 
 # Allows to execute several search operations in one request.
 # es.msearch(body, index=None, doc_type=None, params=None, headers=None)
@@ -186,6 +186,3 @@ from elasticsearch import helpers
 # for ok, response in helpers.streaming_bulk(es, actions):
 #     if not ok:
 #         print(response)
-
-
-
