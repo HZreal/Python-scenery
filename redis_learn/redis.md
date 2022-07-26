@@ -252,7 +252,7 @@ redis可以将执行的所有指令追加记录到文件中持久化存储，默
     appendonly yes  # 是否开启AOF
     appendfilename "appendonly.aof"  # AOF文件
 
-AOF机制记录操作触发的时机(过于频繁会影响性能)
+AOF机制记录操作触发的时机，或者说同步文件策略(过于频繁会影响性能)
 
     # appendfsync always    # 每个操作都写到磁盘中
     appendfsync everysec    # 每秒写一次磁盘，默认
@@ -478,12 +478,23 @@ RedisTemplate底层同样基于lettuce实现了分片集群的支持，而使用
     # 可以将redis_cluster就当作普通的redis客户端使用
     redis_master.delete(key)
 
+## Redis单线程
+
+Redis单线程优势：
+* 避免线程切换和竞争产生的消耗
+* 避免同步机制的开销
+* 实现简单，底层数据结构的设计无需考虑线程安全
+
+Redis6.0版本引入了多线程的目的是解决Redis在网络 I/O 上的性能瓶颈
+
 ## 用途
 
 ### 缓存
 
 ### 持久存储
 * 数据库的统计冗余字段 放到 redis中保存
+
+
 
 
 ## 相关补充
