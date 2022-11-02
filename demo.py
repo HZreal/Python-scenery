@@ -23,12 +23,14 @@ def get_target_count(arr: list):
 
 
 def count():
-    with open(r'C:\Users\sizhong\file\project\ft-ts-server\schedule\pop_log5.txt', 'r') as f:
-        res = f.readlines()
-        count = 0
-        for i in res:
-            count += int(i.strip())
-        print(count)
+    with open(r'C:\Users\sizhong\file\project\SEV\总停车位0905-1.json', 'r') as f:
+        dict_data = json.loads(f.read())
+    geom_list = dict_data['geometries']
+    # for i in geom_list:
+    #     print('======>  ', i)
+    with open(r'C:\Users\sizhong\file\project\SEV\总停车位0905-1-geom-list.json', 'w') as f2:
+        f2.write(json.dumps(geom_list))
+
 
 
 def tt():
