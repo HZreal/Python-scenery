@@ -1,0 +1,6 @@
+site_name: first Docs
+pages:
+pages:
+- HomePage: index.md
+- AboutPage: about.md
+theme: readthedocs
