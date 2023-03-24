@@ -1,12 +1,12 @@
 # 一、类装饰器
 # 通过类来装饰函数func，相当于无参装饰器
-# 原理：show = MyDecorator(show)  装饰过程就是类的初始化！！！
+# 原理：show = ClassDecorator(show)  装饰过程就是类的初始化！！！
 #       被装饰函数将函数名func作为参数传给类，对类初始化返回一个实例对象，
 #       并将这个实例对象赋给func(或者说将这个实例对象重命名为func)
 #       以后对func的调用：func()，就是对该类实例对象的调用，调用时会执行__call__方法
 
 
-class MyDecorator(object):
+class ClassDecorator(object):
     def __init__(self, func):            # 相当于装饰器函数
         print('类的初始化过程就是装饰的过程, you can do some decorate-related operation here ------')
         self.func = func
@@ -18,13 +18,13 @@ class MyDecorator(object):
         return self.func(*args, **kwargs)
         # print('you can add some other operation after origin func ------')
 
-@MyDecorator           # 相当于 show = MyDecorator(show), 此时的 show 就是实例对象
+@ClassDecorator           # 相当于 show = ClassDecorator(show), 此时的 show 就是实例对象
 def show(f1, f2):
     add_sum = f1 + f2
     print('----func show is executing------', add_sum)
     return add_sum
-# 装饰后的show即是一个MyDecorator对象
-print(show)                            # 输出show，为MyDecorator对象，此时并未执行__call__方法
+# 装饰后的show即是一个ClassDecorator对象
+print(show)                            # 输出show，为ClassDecorator对象，此时并未执行__call__方法
 add_sum = show(10, f2=22)                   # show(实例)的调用即是__call__的执行，若__call__方法有返回值，则实例的调用有返回值
 print(add_sum)
 
@@ -141,7 +141,7 @@ def function():
 
 # dir()查看内部使用的属性和方法
 # print(dir())                         # 获得当前模块的属性列表
-# print(dir(Mydecorator))              # 获得当前类的属性列表
+# print(dir(ClassDecorator))              # 获得当前类的属性列表
 # print(dir(function))                 # 获得当前函数的属性列表
 # 可以用“函数名function的点操作”查看内部系统分配的隐藏函数，如下
 # print(function.__dir__())
