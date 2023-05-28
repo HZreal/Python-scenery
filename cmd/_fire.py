@@ -17,11 +17,10 @@ def get_max(num1: int, num2: int):
 
 
 class Calculator:
-    def get_double(self, num_1):
-        return 2 * num_1
+    def multiply(self, number: int, count: int):
+        return number * count
 
-    def get_power(self, num_2):
-        return num_2 ** 2
+
 
 
 def use_fire():
@@ -32,8 +31,9 @@ def use_fire():
 
     # 类式
     fire.Fire(Calculator)
-    # 终端调用脚本  python _fire_.py get_double 3
-    # 终端调用脚本  python _fire_.py get_power 3
+    # 终端调用脚本  python _fire_.py multiply 3 4
+    # 终端调用脚本  python _fire_.py multiply -number 3 -count 4
+    # 终端调用脚本  python _fire_.py multiply --number=3 --count=4
 
 
 if __name__ == '__main__':
