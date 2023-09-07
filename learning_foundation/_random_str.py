@@ -19,7 +19,7 @@ def get_random_code(bit: int) -> str:
 
     # 生成的随机串，列表存储
     select_str = a + b + c
-    random_list = random.sample(select_str, bit)         # 从select_str字符串中随机选择30次，返回一个随机串列表
+    random_list = random.sample(select_str, bit)  # 从select_str字符串中随机选择30次，返回一个随机串列表
 
     # 列表转字符串
     random_str = ''.join(random_list)
@@ -54,7 +54,7 @@ def generate_count_number(count: int, bit: int = 6):
         # bit位
         random_num = f'''%0{bit}d''' % random.randint(0, max_num)
 
-        print(f'生成的第{i+1}个数： ')
+        print(f'生成的第{i + 1}个数： ')
         yield random_num
 
 
@@ -65,7 +65,6 @@ def random_from_selector(selector: list):
     return random.choice(selector)
 
 
-import random
 def foo(n):
     random.seed()
     c1 = 0
@@ -82,7 +81,6 @@ def foo(n):
     return c1 / c2
 
 
-
 if __name__ == '__main__':
     # 生成32位随机串
     # random_str = get_random_code(32)
@@ -97,6 +95,4 @@ if __name__ == '__main__':
     # pop_num = random_from_selector([12, 23, 43, 54, 35])
     # print(pop_num)
 
-
-
-    foo(10)
+    print('foo', foo(10))
