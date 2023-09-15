@@ -1,6 +1,7 @@
 from minio import Minio
 from minio.error import S3Error
 
+# https://min.io/docs/minio/linux/developers/python/minio-py.html
 
 ACCESS_KEY = '5WXG4qQaYJGDGec3z7hk'
 SECRET_KEY = 'NtBJ9z2Zb241vl3EjNtJGfsrsiXwgEICeGAb0NDn'
