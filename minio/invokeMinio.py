@@ -36,6 +36,6 @@ def invoke_minio():
 
 if __name__ == "__main__":
     try:
-        invokeMinio()
+        invoke_minio()
     except S3Error as exc:
         print("error occurred.", exc)
