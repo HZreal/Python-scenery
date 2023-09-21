@@ -1,9 +1,17 @@
-from datetime import datetime
+# from datetime import datetime
+#
+# def fff():
+#     sttt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#     a = 2
+#     b = a + 1
+#     pass
+#
+# fff()
 
-def fff():
-    sttt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    a = 2
-    b = a + 1
-    pass
+# import this
+# print(this.s)
 
-fff()
+
+for i in range(100000):
+
+    print('-------------->', i)
