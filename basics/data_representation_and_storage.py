@@ -43,4 +43,17 @@ def parse_mp_file(mp_file_path):
 
 
 if __name__ == '__main__':
+    """
+    .mp 数据为二进制流格式，字节顺序定义如下:
+    1~4字节，int32，行数，rowLen
+    5~8字节，int32，列数，colLen
+    9~24字节，保留
+    以下数据一共 rowLen * colLen 组，每组16字节
+    25~48字节，double * 2，经度、纬度
+    25~32字节，double，经度
+    33~40字节，double，纬度
+    41~56字节，double * 2，经度、纬度
+    ...
+    ...
+    """
     parse_mp_file('assets/fusion.mp')
