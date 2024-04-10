@@ -1,0 +1,48 @@
+{
+  "version" : "0.2.0",
+  "activeDialogId" : 0,
+  "uiState" : {
+    "sidePanelOpen" : true
+  },
+  "dialogs" : [ {
+    "name" : "Heloo",
+    "id" : 0,
+    "messages" : [ {
+      "type" : "USER",
+      "context" : {
+        "type" : "FUNCTION",
+        "psiData" : {
+          "lineOffset" : 64,
+          "name" : "aa",
+          "text" : "def aa():\n    with open(r'C:\\Users\\sizhong\\file\\project\\SEV\\源数据\\车辆位置20230108-9点.json', 'r', encoding='utf8') as f:\n        data_list = json.loads(f.read())\n    for item in data_list:\n        item['battery_capacity'] = round(random.random(), 2)\n    with open(r'C:\\Users\\sizhong\\file\\project\\SEV\\源数据\\车辆位置20230108-9点-添加电池信息.json', 'w',\n              encoding='utf8') as f:\n        f.write(json.dumps(data_list))",
+          "file" : "C:\\Users\\sizhong\\file\\py\\Python-scenery\\test_dir\\demo.py"
+        }
+      },
+      "rawContent" : "heloo",
+      "content" : {
+        "0" : {
+          "type" : "MARKDOWN",
+          "content" : "heloo"
+        }
+      }
+    }, {
+      "type" : "AI",
+      "context" : {
+        "type" : "FUNCTION",
+        "psiData" : {
+          "lineOffset" : 64,
+          "name" : "aa",
+          "text" : "def aa():\n    with open(r'C:\\Users\\sizhong\\file\\project\\SEV\\源数据\\车辆位置20230108-9点.json', 'r', encoding='utf8') as f:\n        data_list = json.loads(f.read())\n    for item in data_list:\n        item['battery_capacity'] = round(random.random(), 2)\n    with open(r'C:\\Users\\sizhong\\file\\project\\SEV\\源数据\\车辆位置20230108-9点-添加电池信息.json', 'w',\n              encoding='utf8') as f:\n        f.write(json.dumps(data_list))",
+          "file" : "C:\\Users\\sizhong\\file\\py\\Python-scenery\\test_dir\\demo.py"
+        }
+      },
+      "rawContent" : "\nSomething went wrong. Please try again later.",
+      "content" : {
+        "0" : {
+          "type" : "MARKDOWN",
+          "content" : "Something went wrong. Please try again later."
+        }
+      }
+    } ]
+  } ]
+}
