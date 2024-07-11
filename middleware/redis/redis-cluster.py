@@ -17,7 +17,7 @@ def redis_cluster():
 
 
     try:
-        # 构建RedisCluster对象
+        # 构建RedisCluster对象，可以理解成 Redis 集群代理（将所有的集群伪装成一个节点，集群对客户端透明）
         rc = RedisCluster(startup_nodes=nodes, decode_responses=True)
     except Exception as e:
         print(e)
